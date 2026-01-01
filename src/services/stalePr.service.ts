@@ -1,7 +1,6 @@
 import { prisma } from "../lib/prisma";
 import { PRStatus } from "../generated/prisma/enums";
 import { appConfig } from "../../config/appConfig";
-import app from "../app";
 
 export async function findStalePullRequests() {
   const thresholdDate = new Date();

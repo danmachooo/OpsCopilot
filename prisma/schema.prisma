@@ -23,16 +23,20 @@ model Repository {
 }
 
 model PullRequest {
-  id        Int      @id @default(autoincrement())
-  repoId    Int
-  prNumber  Int
-  title     String
-  status    PRStatus
+  id       Int      @id @default(autoincrement())
+  repoId   Int
+  prNumber Int
+  title    String
+  status   PRStatus
 
-  openedAt  DateTime
-  closedAt  DateTime?
+  openedAt DateTime
+  closedAt DateTime?
 
-  alertedAt DateTime?
+  staleAlertAt DateTime?
+
+  reviewCount       Int       @default(0)
+  lastReviewAt      DateTime?
+  unreviewedAlertAt DateTime?
 
   repository Repository @relation(fields: [repoId], references: [id])
 

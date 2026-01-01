@@ -30,12 +30,14 @@ export type PullRequestAvgAggregateOutputType = {
   id: number | null
   repoId: number | null
   prNumber: number | null
+  reviewCount: number | null
 }
 
 export type PullRequestSumAggregateOutputType = {
   id: number | null
   repoId: number | null
   prNumber: number | null
+  reviewCount: number | null
 }
 
 export type PullRequestMinAggregateOutputType = {
@@ -46,7 +48,10 @@ export type PullRequestMinAggregateOutputType = {
   status: $Enums.PRStatus | null
   openedAt: Date | null
   closedAt: Date | null
-  alertedAt: Date | null
+  staleAlertAt: Date | null
+  reviewCount: number | null
+  lastReviewAt: Date | null
+  unreviewedAlertAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,7 +64,10 @@ export type PullRequestMaxAggregateOutputType = {
   status: $Enums.PRStatus | null
   openedAt: Date | null
   closedAt: Date | null
-  alertedAt: Date | null
+  staleAlertAt: Date | null
+  reviewCount: number | null
+  lastReviewAt: Date | null
+  unreviewedAlertAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -72,7 +80,10 @@ export type PullRequestCountAggregateOutputType = {
   status: number
   openedAt: number
   closedAt: number
-  alertedAt: number
+  staleAlertAt: number
+  reviewCount: number
+  lastReviewAt: number
+  unreviewedAlertAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -83,12 +94,14 @@ export type PullRequestAvgAggregateInputType = {
   id?: true
   repoId?: true
   prNumber?: true
+  reviewCount?: true
 }
 
 export type PullRequestSumAggregateInputType = {
   id?: true
   repoId?: true
   prNumber?: true
+  reviewCount?: true
 }
 
 export type PullRequestMinAggregateInputType = {
@@ -99,7 +112,10 @@ export type PullRequestMinAggregateInputType = {
   status?: true
   openedAt?: true
   closedAt?: true
-  alertedAt?: true
+  staleAlertAt?: true
+  reviewCount?: true
+  lastReviewAt?: true
+  unreviewedAlertAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,7 +128,10 @@ export type PullRequestMaxAggregateInputType = {
   status?: true
   openedAt?: true
   closedAt?: true
-  alertedAt?: true
+  staleAlertAt?: true
+  reviewCount?: true
+  lastReviewAt?: true
+  unreviewedAlertAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -125,7 +144,10 @@ export type PullRequestCountAggregateInputType = {
   status?: true
   openedAt?: true
   closedAt?: true
-  alertedAt?: true
+  staleAlertAt?: true
+  reviewCount?: true
+  lastReviewAt?: true
+  unreviewedAlertAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -225,7 +247,10 @@ export type PullRequestGroupByOutputType = {
   status: $Enums.PRStatus
   openedAt: Date
   closedAt: Date | null
-  alertedAt: Date | null
+  staleAlertAt: Date | null
+  reviewCount: number
+  lastReviewAt: Date | null
+  unreviewedAlertAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: PullRequestCountAggregateOutputType | null
@@ -261,7 +286,10 @@ export type PullRequestWhereInput = {
   status?: Prisma.EnumPRStatusFilter<"PullRequest"> | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFilter<"PullRequest"> | Date | string
   closedAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
-  alertedAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
+  staleAlertAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
+  reviewCount?: Prisma.IntFilter<"PullRequest"> | number
+  lastReviewAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
+  unreviewedAlertAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PullRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PullRequest"> | Date | string
   repository?: Prisma.XOR<Prisma.RepositoryScalarRelationFilter, Prisma.RepositoryWhereInput>
@@ -275,7 +303,10 @@ export type PullRequestOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   openedAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  alertedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  staleAlertAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  lastReviewAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  unreviewedAlertAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   repository?: Prisma.RepositoryOrderByWithRelationInput
@@ -293,7 +324,10 @@ export type PullRequestWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumPRStatusFilter<"PullRequest"> | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFilter<"PullRequest"> | Date | string
   closedAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
-  alertedAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
+  staleAlertAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
+  reviewCount?: Prisma.IntFilter<"PullRequest"> | number
+  lastReviewAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
+  unreviewedAlertAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PullRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PullRequest"> | Date | string
   repository?: Prisma.XOR<Prisma.RepositoryScalarRelationFilter, Prisma.RepositoryWhereInput>
@@ -307,7 +341,10 @@ export type PullRequestOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   openedAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  alertedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  staleAlertAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  lastReviewAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  unreviewedAlertAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PullRequestCountOrderByAggregateInput
@@ -328,7 +365,10 @@ export type PullRequestScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumPRStatusWithAggregatesFilter<"PullRequest"> | $Enums.PRStatus
   openedAt?: Prisma.DateTimeWithAggregatesFilter<"PullRequest"> | Date | string
   closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PullRequest"> | Date | string | null
-  alertedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PullRequest"> | Date | string | null
+  staleAlertAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PullRequest"> | Date | string | null
+  reviewCount?: Prisma.IntWithAggregatesFilter<"PullRequest"> | number
+  lastReviewAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PullRequest"> | Date | string | null
+  unreviewedAlertAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PullRequest"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PullRequest"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PullRequest"> | Date | string
 }
@@ -339,7 +379,10 @@ export type PullRequestCreateInput = {
   status: $Enums.PRStatus
   openedAt: Date | string
   closedAt?: Date | string | null
-  alertedAt?: Date | string | null
+  staleAlertAt?: Date | string | null
+  reviewCount?: number
+  lastReviewAt?: Date | string | null
+  unreviewedAlertAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   repository: Prisma.RepositoryCreateNestedOneWithoutPullRequestsInput
@@ -353,7 +396,10 @@ export type PullRequestUncheckedCreateInput = {
   status: $Enums.PRStatus
   openedAt: Date | string
   closedAt?: Date | string | null
-  alertedAt?: Date | string | null
+  staleAlertAt?: Date | string | null
+  reviewCount?: number
+  lastReviewAt?: Date | string | null
+  unreviewedAlertAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -364,7 +410,10 @@ export type PullRequestUpdateInput = {
   status?: Prisma.EnumPRStatusFieldUpdateOperationsInput | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  alertedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  staleAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  unreviewedAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   repository?: Prisma.RepositoryUpdateOneRequiredWithoutPullRequestsNestedInput
@@ -378,7 +427,10 @@ export type PullRequestUncheckedUpdateInput = {
   status?: Prisma.EnumPRStatusFieldUpdateOperationsInput | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  alertedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  staleAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  unreviewedAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -391,7 +443,10 @@ export type PullRequestCreateManyInput = {
   status: $Enums.PRStatus
   openedAt: Date | string
   closedAt?: Date | string | null
-  alertedAt?: Date | string | null
+  staleAlertAt?: Date | string | null
+  reviewCount?: number
+  lastReviewAt?: Date | string | null
+  unreviewedAlertAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -402,7 +457,10 @@ export type PullRequestUpdateManyMutationInput = {
   status?: Prisma.EnumPRStatusFieldUpdateOperationsInput | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  alertedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  staleAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  unreviewedAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -415,7 +473,10 @@ export type PullRequestUncheckedUpdateManyInput = {
   status?: Prisma.EnumPRStatusFieldUpdateOperationsInput | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  alertedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  staleAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  unreviewedAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -443,7 +504,10 @@ export type PullRequestCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   openedAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
-  alertedAt?: Prisma.SortOrder
+  staleAlertAt?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  lastReviewAt?: Prisma.SortOrder
+  unreviewedAlertAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -452,6 +516,7 @@ export type PullRequestAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   repoId?: Prisma.SortOrder
   prNumber?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type PullRequestMaxOrderByAggregateInput = {
@@ -462,7 +527,10 @@ export type PullRequestMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   openedAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
-  alertedAt?: Prisma.SortOrder
+  staleAlertAt?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  lastReviewAt?: Prisma.SortOrder
+  unreviewedAlertAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -475,7 +543,10 @@ export type PullRequestMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   openedAt?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
-  alertedAt?: Prisma.SortOrder
+  staleAlertAt?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
+  lastReviewAt?: Prisma.SortOrder
+  unreviewedAlertAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -484,6 +555,7 @@ export type PullRequestSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   repoId?: Prisma.SortOrder
   prNumber?: Prisma.SortOrder
+  reviewCount?: Prisma.SortOrder
 }
 
 export type PullRequestCreateNestedManyWithoutRepositoryInput = {
@@ -542,7 +614,10 @@ export type PullRequestCreateWithoutRepositoryInput = {
   status: $Enums.PRStatus
   openedAt: Date | string
   closedAt?: Date | string | null
-  alertedAt?: Date | string | null
+  staleAlertAt?: Date | string | null
+  reviewCount?: number
+  lastReviewAt?: Date | string | null
+  unreviewedAlertAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -554,7 +629,10 @@ export type PullRequestUncheckedCreateWithoutRepositoryInput = {
   status: $Enums.PRStatus
   openedAt: Date | string
   closedAt?: Date | string | null
-  alertedAt?: Date | string | null
+  staleAlertAt?: Date | string | null
+  reviewCount?: number
+  lastReviewAt?: Date | string | null
+  unreviewedAlertAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -596,7 +674,10 @@ export type PullRequestScalarWhereInput = {
   status?: Prisma.EnumPRStatusFilter<"PullRequest"> | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFilter<"PullRequest"> | Date | string
   closedAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
-  alertedAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
+  staleAlertAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
+  reviewCount?: Prisma.IntFilter<"PullRequest"> | number
+  lastReviewAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
+  unreviewedAlertAt?: Prisma.DateTimeNullableFilter<"PullRequest"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PullRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PullRequest"> | Date | string
 }
@@ -608,7 +689,10 @@ export type PullRequestCreateManyRepositoryInput = {
   status: $Enums.PRStatus
   openedAt: Date | string
   closedAt?: Date | string | null
-  alertedAt?: Date | string | null
+  staleAlertAt?: Date | string | null
+  reviewCount?: number
+  lastReviewAt?: Date | string | null
+  unreviewedAlertAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -619,7 +703,10 @@ export type PullRequestUpdateWithoutRepositoryInput = {
   status?: Prisma.EnumPRStatusFieldUpdateOperationsInput | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  alertedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  staleAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  unreviewedAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -631,7 +718,10 @@ export type PullRequestUncheckedUpdateWithoutRepositoryInput = {
   status?: Prisma.EnumPRStatusFieldUpdateOperationsInput | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  alertedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  staleAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  unreviewedAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -643,7 +733,10 @@ export type PullRequestUncheckedUpdateManyWithoutRepositoryInput = {
   status?: Prisma.EnumPRStatusFieldUpdateOperationsInput | $Enums.PRStatus
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  alertedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  staleAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastReviewAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  unreviewedAlertAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -658,7 +751,10 @@ export type PullRequestSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   status?: boolean
   openedAt?: boolean
   closedAt?: boolean
-  alertedAt?: boolean
+  staleAlertAt?: boolean
+  reviewCount?: boolean
+  lastReviewAt?: boolean
+  unreviewedAlertAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   repository?: boolean | Prisma.RepositoryDefaultArgs<ExtArgs>
@@ -672,7 +768,10 @@ export type PullRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   status?: boolean
   openedAt?: boolean
   closedAt?: boolean
-  alertedAt?: boolean
+  staleAlertAt?: boolean
+  reviewCount?: boolean
+  lastReviewAt?: boolean
+  unreviewedAlertAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   repository?: boolean | Prisma.RepositoryDefaultArgs<ExtArgs>
@@ -686,7 +785,10 @@ export type PullRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   status?: boolean
   openedAt?: boolean
   closedAt?: boolean
-  alertedAt?: boolean
+  staleAlertAt?: boolean
+  reviewCount?: boolean
+  lastReviewAt?: boolean
+  unreviewedAlertAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   repository?: boolean | Prisma.RepositoryDefaultArgs<ExtArgs>
@@ -700,12 +802,15 @@ export type PullRequestSelectScalar = {
   status?: boolean
   openedAt?: boolean
   closedAt?: boolean
-  alertedAt?: boolean
+  staleAlertAt?: boolean
+  reviewCount?: boolean
+  lastReviewAt?: boolean
+  unreviewedAlertAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PullRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "repoId" | "prNumber" | "title" | "status" | "openedAt" | "closedAt" | "alertedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["pullRequest"]>
+export type PullRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "repoId" | "prNumber" | "title" | "status" | "openedAt" | "closedAt" | "staleAlertAt" | "reviewCount" | "lastReviewAt" | "unreviewedAlertAt" | "createdAt" | "updatedAt", ExtArgs["result"]["pullRequest"]>
 export type PullRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   repository?: boolean | Prisma.RepositoryDefaultArgs<ExtArgs>
 }
@@ -729,7 +834,10 @@ export type $PullRequestPayload<ExtArgs extends runtime.Types.Extensions.Interna
     status: $Enums.PRStatus
     openedAt: Date
     closedAt: Date | null
-    alertedAt: Date | null
+    staleAlertAt: Date | null
+    reviewCount: number
+    lastReviewAt: Date | null
+    unreviewedAlertAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["pullRequest"]>
@@ -1163,7 +1271,10 @@ export interface PullRequestFieldRefs {
   readonly status: Prisma.FieldRef<"PullRequest", 'PRStatus'>
   readonly openedAt: Prisma.FieldRef<"PullRequest", 'DateTime'>
   readonly closedAt: Prisma.FieldRef<"PullRequest", 'DateTime'>
-  readonly alertedAt: Prisma.FieldRef<"PullRequest", 'DateTime'>
+  readonly staleAlertAt: Prisma.FieldRef<"PullRequest", 'DateTime'>
+  readonly reviewCount: Prisma.FieldRef<"PullRequest", 'Int'>
+  readonly lastReviewAt: Prisma.FieldRef<"PullRequest", 'DateTime'>
+  readonly unreviewedAlertAt: Prisma.FieldRef<"PullRequest", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"PullRequest", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PullRequest", 'DateTime'>
 }

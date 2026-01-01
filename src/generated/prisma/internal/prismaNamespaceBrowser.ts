@@ -89,7 +89,10 @@ export const PullRequestScalarFieldEnum = {
   status: 'status',
   openedAt: 'openedAt',
   closedAt: 'closedAt',
-  alertedAt: 'alertedAt',
+  staleAlertAt: 'staleAlertAt',
+  reviewCount: 'reviewCount',
+  lastReviewAt: 'lastReviewAt',
+  unreviewedAlertAt: 'unreviewedAlertAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

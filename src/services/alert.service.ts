@@ -16,7 +16,26 @@ export async function alertOnStalePRs(stalePrs: any[]) {
 
     await prisma.pullRequest.update({
       where: { id: pr.id },
-      data: { alertedAt: new Date() },
+      data: { staleAlertAt: new Date() },
+    });
+  }
+}
+
+export async function alertOnUnreviewedPRs(prs: any[]) {
+  for (const pr of prs) {
+    await sendSlackAlert(
+      `👀 *Unreviewed PR*\n\n` +
+        `PR #${pr.prNumber}: ${pr.title}\n` +
+        `Repo: ${pr.repository.name}`
+    );
+
+    await prisma.pullRequest.update({
+      where: {
+        id: pr.id,
+      },
+      data: {
+        unreviewedAlertAt: new Date(),
+      },
     });
   }
 }
