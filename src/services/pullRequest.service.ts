@@ -1,23 +1,23 @@
 import { prisma } from "../lib/prisma";
 import { PRStatus } from "../generated/prisma/enums";
-import { awaitShutdown } from "./../../node_modules/effect/src/TPubSub";
+import {
+  PullRequestIdentifier,
+  ClosePullRequestInput,
+  UpsertPullRequest,
+} from "./types";
 
-export type UpsertPullRequest = {
-  repoId: number;
-  repoName: string;
-  prNumber: number;
-  title: string;
-  status: PRStatus;
-  openedAt: Date;
-  closedAt?: Date | null;
-  lastCommitAt?: Date | null;
-};
+// --- Service Functions ---
 
-export async function closePullRequest(data: {
-  repoId: number;
-  prNumber: number;
-  closedAt?: Date;
-}) {
+export async function prAlreadyExist(data: PullRequestIdentifier) {
+  // Added return so the function is actually useful!
+  return await prisma.pullRequest.findUnique({
+    where: {
+      repoId_prNumber: { repoId: data.repoId, prNumber: data.prNumber },
+    },
+  });
+}
+
+export async function closePullRequest(data: ClosePullRequestInput) {
   if (data.repoId === undefined || data.prNumber === undefined) {
     throw new Error(
       "repoId and prNumber are required to close a Pull Request."
@@ -39,19 +39,11 @@ export async function closePullRequest(data: {
     },
   });
 }
-export async function resetPullRequestAlerts({
-  repoId,
-  prNumber,
-}: {
-  repoId: number;
-  prNumber: number;
-}) {
+
+export async function resetPullRequestAlerts(data: PullRequestIdentifier) {
   await prisma.pullRequest.update({
     where: {
-      repoId_prNumber: {
-        repoId,
-        prNumber,
-      },
+      repoId_prNumber: data,
     },
     data: {
       staleAlertAt: null,
@@ -59,6 +51,7 @@ export async function resetPullRequestAlerts({
     },
   });
 }
+
 export async function upsertPullRequest(data: UpsertPullRequest) {
   // 1️⃣ Upsert repository
   await prisma.repository.upsert({
@@ -87,19 +80,11 @@ export async function upsertPullRequest(data: UpsertPullRequest) {
     },
   });
 }
-export async function incrementReviewCount({
-  repoId,
-  prNumber,
-}: {
-  repoId: number;
-  prNumber: number;
-}) {
+
+export async function incrementReviewCount(data: PullRequestIdentifier) {
   await prisma.pullRequest.update({
     where: {
-      repoId_prNumber: {
-        repoId,
-        prNumber,
-      },
+      repoId_prNumber: data,
     },
     data: {
       reviewCount: { increment: 1 },
@@ -110,22 +95,14 @@ export async function incrementReviewCount({
 
 export async function markUnreviewedAlert(id: number) {
   await prisma.pullRequest.update({
-    where: {
-      id,
-    },
-    data: {
-      unreviewedAlertAt: new Date(),
-    },
+    where: { id },
+    data: { unreviewedAlertAt: new Date() },
   });
 }
 
 export async function markStaleAlert(id: number) {
   await prisma.pullRequest.update({
-    where: {
-      id,
-    },
-    data: {
-      staleAlertAt: new Date(),
-    },
+    where: { id },
+    data: { staleAlertAt: new Date() },
   });
 }

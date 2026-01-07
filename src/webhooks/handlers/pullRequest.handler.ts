@@ -1,4 +1,3 @@
-// src/webhooks/handlers/pullRequest.handler.ts
 import { PRStatus } from "../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import {
@@ -7,38 +6,47 @@ import {
   closePullRequest,
   incrementReviewCount,
 } from "../../services/pullRequest.service";
+import { UpsertPullRequest } from "../../services/types";
 import Logger from "../../utils/logger";
+import {
+  PullRequestReviewWebhookPayload,
+  PullRequestWebhookPayload,
+} from "./types";
 
-export async function handlePullRequestEvent(payload: any) {
+export async function handlePullRequestEvent(
+  payload: PullRequestWebhookPayload
+) {
   const { action, pull_request, repository } = payload;
+
+  // Basic guard
   if (!pull_request || !repository) return;
 
   const repoId = repository.id;
   const repoName = repository.name;
   const prNumber = pull_request.number;
   const prTitle = pull_request.title ?? "No title";
-  Logger.info("Action: " + action);
 
+  // --- 1. Handle Open/Reopen ---
   if (action === "opened" || action === "reopened") {
-    // Safe upsert for opened PRs
-    const openedAt = pull_request.created_at
-      ? new Date(pull_request.created_at)
-      : new Date();
-
-    await upsertPullRequest({
+    const upsertData: UpsertPullRequest = {
       repoId,
       repoName,
       prNumber,
       title: prTitle,
       status: PRStatus.OPEN,
-      openedAt,
+      openedAt: pull_request.created_at
+        ? new Date(pull_request.created_at)
+        : new Date(),
       closedAt: pull_request.closed_at
         ? new Date(pull_request.closed_at)
         : null,
       lastCommitAt: new Date(),
-    });
+    };
+
+    await upsertPullRequest(upsertData);
   }
 
+  // --- 2. Handle Code Updates (Synchronize) ---
   if (action === "synchronize") {
     await prisma.pullRequest.update({
       where: { repoId_prNumber: { repoId, prNumber } },
@@ -47,43 +55,33 @@ export async function handlePullRequestEvent(payload: any) {
         stalledAlertAt: null,
       },
     });
-
-    await resetPullRequestAlerts({ repoId, prNumber });
   }
-  if (action === "closed") {
-    // Closed PR: update only
-    const closedAt = pull_request.closed_at
-      ? new Date(pull_request.closed_at)
-      : new Date();
 
+  // --- 3. Handle Closing ---
+  if (action === "closed") {
     const existingPR = await prisma.pullRequest.findUnique({
       where: { repoId_prNumber: { repoId, prNumber } },
     });
 
     if (!existingPR) {
-      throw new Error(
-        `PR #${prNumber} in repo ${repoName} does not exist in DB. Cannot close non-existing PR.`
-      );
+      Logger.error(`PR #${prNumber} in repo ${repoName} not found in DB.`);
+      return;
     }
 
-    await prisma.pullRequest.update({
-      where: { repoId_prNumber: { repoId, prNumber } },
-      data: {
-        status: PRStatus.CLOSED,
-        closedAt,
-        title: prTitle,
-      },
-    });
+    await closePullRequest({ repoId, prNumber });
   }
 
+  // --- 4. Global Alert Resets ---
   if (action === "reopened" || action === "synchronize") {
     await resetPullRequestAlerts({ repoId, prNumber });
   }
 }
 
-export async function handlePullRequestReviewEvent(payload: any) {
+export async function handlePullRequestReviewEvent(
+  payload: PullRequestReviewWebhookPayload
+) {
   const { action, pull_request, repository } = payload;
-  Logger.info("Action: " + action);
+  Logger.info("Review Action: " + action);
 
   if (action !== "submitted") return;
 
