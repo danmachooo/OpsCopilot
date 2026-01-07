@@ -1,8 +1,8 @@
 import cron from "node-cron";
 import Logger from "../utils/logger";
-import { findStalePullRequests } from "../services/stalePr.service";
-import { findUnreviewedPullRequests } from "../services/unreviewedPr.service";
-import { findStalledPrs } from "../services/stalledPr.service";
+import { findStalePullRequests } from "../rules/stalePr.rule";
+import { findUnreviewedPullRequests } from "../rules/unreviewedPr.rule";
+import { findStalledPrs } from "../rules/stalledPr.rule";
 import {
   alertOnStalePRs,
   alertOnStalledPRs,
