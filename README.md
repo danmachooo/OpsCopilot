@@ -254,6 +254,3 @@ It’s a tool that earns its place by staying quiet.
 ## License
 
 MIT
-
----
-
