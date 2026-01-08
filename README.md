@@ -107,6 +107,8 @@ This guarantees:
 
 ## Example Slack Alert
 
+#### 🧟‍♂️ Example: Stale Pull Request Alert
+
 ```
 ​🚨 Stale Pull Request Detected
 < Pull Request | #42 – Fix race condition in webhook handler>
@@ -114,7 +116,7 @@ This guarantees:
 > Opened: 12/28/2025 (5 days ago)
 
 ```
-
+#### 👀 Example: Unreviewed Pull Request Alert
 ```
 👀 PR Needs Review
 < Pull Request | #57 – Add Slack retry logic>
@@ -122,7 +124,7 @@ This guarantees:
 > Current Reviewers: @alice, @bob
 > Status: Awaiting first review
 ```
-
+#### If no reviewers are assigned:
 ```
 👀 PR Needs Review
 < Pull Request | #61 – Update README onboarding>
@@ -130,7 +132,7 @@ This guarantees:
 > Current Reviewers: _None assigned_
 > Status: Awaiting first review
 ```
-
+####🚧 Example: Stalled Pull Request Alert
 ```
 🚧 PR is Stalled
 < Pull Request | #33 – Refactor alert scheduler>
@@ -139,7 +141,7 @@ This guarantees:
 > Pending Reviewers: @alice, @bob
 > Action: Please check if a follow-up is needed.
 ```
-
+####If no one has reviewed it yet:
 ```
 🚧 PR is Stalled
 < Pull Request | #34 – Initial Redis integration>
