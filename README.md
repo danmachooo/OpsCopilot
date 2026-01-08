@@ -108,15 +108,11 @@ This guarantees:
 ## Example Slack Alert
 
 ```
-​🚨 PR Review Ownership Alert
+​🚨 Stale Pull Request Detected
+< Pull Request | #42 – Fix race condition in webhook handler>
+> Repo: pr-daemon-api
+> Opened: 12/28/2025 (5 days ago)
 
-​PR: #456 - Update Authentication Logic
-
-Rule Violated: No primary reviewer assigned after 24h
-
-​Detected Reviewers: ​@alice, @bob, ​@carol
-
-​⚠️ Problem: No single owner has been designated, leading to potential review delays.
 ```
 
 Clear. Actionable. No noise.
