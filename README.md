@@ -115,6 +115,40 @@ This guarantees:
 
 ```
 
+```
+👀 PR Needs Review
+< Pull Request | #57 – Add Slack retry logic>
+> Repo: pr-daemon-api
+> Current Reviewers: @alice, @bob
+> Status: Awaiting first review
+```
+
+```
+👀 PR Needs Review
+< Pull Request | #61 – Update README onboarding>
+> Repo: pr-daemon-api
+> Current Reviewers: _None assigned_
+> Status: Awaiting first review
+```
+
+```
+🚧 PR is Stalled
+< Pull Request | #33 – Refactor alert scheduler>
+> Repo: pr-daemon-api
+> Last Activity: 18 hours ago by *charlie*
+> Pending Reviewers: @alice, @bob
+> Action: Please check if a follow-up is needed.
+```
+
+```
+🚧 PR is Stalled
+< Pull Request | #34 – Initial Redis integration>
+> Repo: pr-daemon-api
+> Last Activity: No one has reviewed this PR yet.
+> Pending Reviewers: @alice
+> Action: Please check if a follow-up is needed.
+```
+
 Clear. Actionable. No noise.
 
 ---
