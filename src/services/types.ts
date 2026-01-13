@@ -1,8 +1,7 @@
 // --- Shared Types ---
 import { PullRequest, Repository } from "../generated/prisma/client";
 import { PRStatus } from "../generated/prisma/enums";
-import { RequestedReviewers } from "../webhooks/handlers/types";
-
+import { RequestedReviewer } from "../schema/webhook.schema";
 export type PullRequestWithRepo = PullRequest & {
   repository: Repository;
 };
@@ -22,7 +21,7 @@ export type UpsertPullRequest = PullRequestIdentifier & {
   openedAt?: Date; // Make optional
   closedAt?: Date | null;
   lastCommitAt?: Date | null;
-  reviewers?: RequestedReviewers[];
+  reviewers?: RequestedReviewer[];
 };
 
 export type ClosePullRequestInput = PullRequestIdentifier & {

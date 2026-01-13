@@ -1,7 +1,7 @@
 import { PRStatus } from "../../generated/prisma/enums";
-import { PullRequestWebhookPayload } from "./types";
+import { PullRequestEvent } from "../../schema/webhook.schema";
 
-export function mapGitHubPayload(payload: PullRequestWebhookPayload) {
+export function mapGitHubPayload(payload: PullRequestEvent) {
   const { pull_request, repository } = payload;
 
   return {
@@ -26,6 +26,9 @@ export function mapGitHubPayload(payload: PullRequestWebhookPayload) {
           ? r.slug ?? "unknown-team"
           : r.login ?? "unknown-user",
       type: r.type ?? "User",
+      submittedAt: null, // Requested reviewers haven't submitted yet
+      state: null,
+      ...(r.slug && { slug: r.slug }),
     })),
   };
 }

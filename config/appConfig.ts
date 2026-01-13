@@ -6,7 +6,6 @@ export const appConfig = {
     _24hr: 24 * 60 * 60 * 1000,
     node_env: env.node_env,
     stale_days_threshold: Number(env.stale_days_default),
-
     stall_hours_threshold: 48,
     slack_webhook_url: env.slack_webhook_url,
   },

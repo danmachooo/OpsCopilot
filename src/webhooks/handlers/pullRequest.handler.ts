@@ -1,3 +1,8 @@
+// src/webhooks/handlers/pullRequest.handler.ts
+import {
+  PullRequestEvent,
+  PullRequestReviewEvent,
+} from "../../schema/webhook.schema";
 import {
   upsertPullRequest,
   resetPullRequestAlerts,
@@ -5,17 +10,10 @@ import {
   recordReviewSubmission,
 } from "../../services/pullRequest.service";
 import Logger from "../../utils/logger";
-import { mapGitHubPayload } from "./helper";
-import {
-  PullRequestReviewWebhookPayload,
-  PullRequestWebhookPayload,
-} from "./types";
+import { mapGitHubPayload } from "./pullRequest.helper.ts";
 
-export async function handlePullRequestEvent(
-  payload: PullRequestWebhookPayload
-) {
+export async function handlePullRequestEvent(payload: PullRequestEvent) {
   const { action, pull_request, repository } = payload;
-  if (!pull_request || !repository) return;
 
   const repoId = repository.id;
   const prNumber = pull_request.number;
@@ -56,11 +54,11 @@ export async function handlePullRequestEvent(
 }
 
 export async function handlePullRequestReviewEvent(
-  payload: PullRequestReviewWebhookPayload
+  payload: PullRequestReviewEvent
 ) {
   const { action, pull_request, repository, review } = payload;
 
-  if (action !== "submitted" || !review) return;
+  if (action !== "submitted") return;
 
   try {
     await recordReviewSubmission(

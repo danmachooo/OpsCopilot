@@ -5,13 +5,10 @@ import {
   ClosePullRequestInput,
   UpsertPullRequest,
 } from "./types";
-import { RequestedReviewers } from "../webhooks/handlers/types";
-import Logger from "../utils/logger";
-
+import { RequestedReviewer } from "../schema/webhook.schema";
 // --- Service Functions ---
 
 export async function prAlreadyExist(data: PullRequestIdentifier) {
-  // Added return so the function is actually useful!
   return await prisma.pullRequest.findUnique({
     where: {
       repoId_prNumber: { repoId: data.repoId, prNumber: data.prNumber },
@@ -105,7 +102,7 @@ export async function recordReviewSubmission(
   });
 
   const history =
-    (pr?.completedReviewers as unknown as RequestedReviewers[]) || [];
+    (pr?.completedReviewers as unknown as RequestedReviewer[]) || [];
 
   const alreadyRecorded = history.some(
     (r) => r.id === reviewData.id && r.state === reviewData.state
@@ -117,7 +114,7 @@ export async function recordReviewSubmission(
 
   history.push({
     ...reviewData,
-    submittedAt: new Date(),
+    submittedAt: String(new Date()),
   });
 
   return await prisma.pullRequest.update({
