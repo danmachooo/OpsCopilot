@@ -680,10 +680,6 @@ export type EnumPRStatusFieldUpdateOperationsInput = {
   set?: $Enums.PRStatus
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type PullRequestCreateWithoutRepositoryInput = {
   prNumber: number
   title: string

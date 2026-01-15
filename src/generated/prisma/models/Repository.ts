@@ -28,15 +28,19 @@ export type AggregateRepository = {
 
 export type RepositoryAvgAggregateOutputType = {
   id: number | null
+  teamId: number | null
 }
 
 export type RepositorySumAggregateOutputType = {
   id: number | null
+  teamId: number | null
 }
 
 export type RepositoryMinAggregateOutputType = {
   id: number | null
   name: string | null
+  fullName: string | null
+  teamId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +48,8 @@ export type RepositoryMinAggregateOutputType = {
 export type RepositoryMaxAggregateOutputType = {
   id: number | null
   name: string | null
+  fullName: string | null
+  teamId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -51,6 +57,8 @@ export type RepositoryMaxAggregateOutputType = {
 export type RepositoryCountAggregateOutputType = {
   id: number
   name: number
+  fullName: number
+  teamId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -59,15 +67,19 @@ export type RepositoryCountAggregateOutputType = {
 
 export type RepositoryAvgAggregateInputType = {
   id?: true
+  teamId?: true
 }
 
 export type RepositorySumAggregateInputType = {
   id?: true
+  teamId?: true
 }
 
 export type RepositoryMinAggregateInputType = {
   id?: true
   name?: true
+  fullName?: true
+  teamId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -75,6 +87,8 @@ export type RepositoryMinAggregateInputType = {
 export type RepositoryMaxAggregateInputType = {
   id?: true
   name?: true
+  fullName?: true
+  teamId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +96,8 @@ export type RepositoryMaxAggregateInputType = {
 export type RepositoryCountAggregateInputType = {
   id?: true
   name?: true
+  fullName?: true
+  teamId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -176,6 +192,8 @@ export type RepositoryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type RepositoryGroupByOutputType = {
   id: number
   name: string
+  fullName: string
+  teamId: number
   createdAt: Date
   updatedAt: Date
   _count: RepositoryCountAggregateOutputType | null
@@ -206,33 +224,45 @@ export type RepositoryWhereInput = {
   NOT?: Prisma.RepositoryWhereInput | Prisma.RepositoryWhereInput[]
   id?: Prisma.IntFilter<"Repository"> | number
   name?: Prisma.StringFilter<"Repository"> | string
+  fullName?: Prisma.StringFilter<"Repository"> | string
+  teamId?: Prisma.IntFilter<"Repository"> | number
   createdAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
+  team?: Prisma.XOR<Prisma.TeamScalarRelationFilter, Prisma.TeamWhereInput>
   pullRequests?: Prisma.PullRequestListRelationFilter
 }
 
 export type RepositoryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  team?: Prisma.TeamOrderByWithRelationInput
   pullRequests?: Prisma.PullRequestOrderByRelationAggregateInput
 }
 
 export type RepositoryWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  teamId_fullName?: Prisma.RepositoryTeamIdFullNameCompoundUniqueInput
   AND?: Prisma.RepositoryWhereInput | Prisma.RepositoryWhereInput[]
   OR?: Prisma.RepositoryWhereInput[]
   NOT?: Prisma.RepositoryWhereInput | Prisma.RepositoryWhereInput[]
   name?: Prisma.StringFilter<"Repository"> | string
+  fullName?: Prisma.StringFilter<"Repository"> | string
+  teamId?: Prisma.IntFilter<"Repository"> | number
   createdAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
+  team?: Prisma.XOR<Prisma.TeamScalarRelationFilter, Prisma.TeamWhereInput>
   pullRequests?: Prisma.PullRequestListRelationFilter
-}, "id">
+}, "id" | "teamId_fullName">
 
 export type RepositoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.RepositoryCountOrderByAggregateInput
@@ -248,6 +278,8 @@ export type RepositoryScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RepositoryScalarWhereWithAggregatesInput | Prisma.RepositoryScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Repository"> | number
   name?: Prisma.StringWithAggregatesFilter<"Repository"> | string
+  fullName?: Prisma.StringWithAggregatesFilter<"Repository"> | string
+  teamId?: Prisma.IntWithAggregatesFilter<"Repository"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Repository"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Repository"> | Date | string
 }
@@ -255,14 +287,18 @@ export type RepositoryScalarWhereWithAggregatesInput = {
 export type RepositoryCreateInput = {
   id: number
   name: string
+  fullName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  team: Prisma.TeamCreateNestedOneWithoutRepositoriesInput
   pullRequests?: Prisma.PullRequestCreateNestedManyWithoutRepositoryInput
 }
 
 export type RepositoryUncheckedCreateInput = {
   id: number
   name: string
+  fullName: string
+  teamId: number
   createdAt?: Date | string
   updatedAt?: Date | string
   pullRequests?: Prisma.PullRequestUncheckedCreateNestedManyWithoutRepositoryInput
@@ -271,14 +307,18 @@ export type RepositoryUncheckedCreateInput = {
 export type RepositoryUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  team?: Prisma.TeamUpdateOneRequiredWithoutRepositoriesNestedInput
   pullRequests?: Prisma.PullRequestUpdateManyWithoutRepositoryNestedInput
 }
 
 export type RepositoryUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  teamId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pullRequests?: Prisma.PullRequestUncheckedUpdateManyWithoutRepositoryNestedInput
@@ -287,6 +327,8 @@ export type RepositoryUncheckedUpdateInput = {
 export type RepositoryCreateManyInput = {
   id: number
   name: string
+  fullName: string
+  teamId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -294,6 +336,7 @@ export type RepositoryCreateManyInput = {
 export type RepositoryUpdateManyMutationInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -301,24 +344,46 @@ export type RepositoryUpdateManyMutationInput = {
 export type RepositoryUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  teamId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RepositoryListRelationFilter = {
+  every?: Prisma.RepositoryWhereInput
+  some?: Prisma.RepositoryWhereInput
+  none?: Prisma.RepositoryWhereInput
+}
+
+export type RepositoryOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type RepositoryTeamIdFullNameCompoundUniqueInput = {
+  teamId: number
+  fullName: string
 }
 
 export type RepositoryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type RepositoryAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
 }
 
 export type RepositoryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -326,12 +391,15 @@ export type RepositoryMaxOrderByAggregateInput = {
 export type RepositoryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type RepositorySumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  teamId?: Prisma.SortOrder
 }
 
 export type RepositoryScalarRelationFilter = {
@@ -339,20 +407,46 @@ export type RepositoryScalarRelationFilter = {
   isNot?: Prisma.RepositoryWhereInput
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type RepositoryCreateNestedManyWithoutTeamInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutTeamInput, Prisma.RepositoryUncheckedCreateWithoutTeamInput> | Prisma.RepositoryCreateWithoutTeamInput[] | Prisma.RepositoryUncheckedCreateWithoutTeamInput[]
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutTeamInput | Prisma.RepositoryCreateOrConnectWithoutTeamInput[]
+  createMany?: Prisma.RepositoryCreateManyTeamInputEnvelope
+  connect?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
+export type RepositoryUncheckedCreateNestedManyWithoutTeamInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutTeamInput, Prisma.RepositoryUncheckedCreateWithoutTeamInput> | Prisma.RepositoryCreateWithoutTeamInput[] | Prisma.RepositoryUncheckedCreateWithoutTeamInput[]
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutTeamInput | Prisma.RepositoryCreateOrConnectWithoutTeamInput[]
+  createMany?: Prisma.RepositoryCreateManyTeamInputEnvelope
+  connect?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type RepositoryUpdateManyWithoutTeamNestedInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutTeamInput, Prisma.RepositoryUncheckedCreateWithoutTeamInput> | Prisma.RepositoryCreateWithoutTeamInput[] | Prisma.RepositoryUncheckedCreateWithoutTeamInput[]
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutTeamInput | Prisma.RepositoryCreateOrConnectWithoutTeamInput[]
+  upsert?: Prisma.RepositoryUpsertWithWhereUniqueWithoutTeamInput | Prisma.RepositoryUpsertWithWhereUniqueWithoutTeamInput[]
+  createMany?: Prisma.RepositoryCreateManyTeamInputEnvelope
+  set?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
+  disconnect?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
+  delete?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
+  connect?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
+  update?: Prisma.RepositoryUpdateWithWhereUniqueWithoutTeamInput | Prisma.RepositoryUpdateWithWhereUniqueWithoutTeamInput[]
+  updateMany?: Prisma.RepositoryUpdateManyWithWhereWithoutTeamInput | Prisma.RepositoryUpdateManyWithWhereWithoutTeamInput[]
+  deleteMany?: Prisma.RepositoryScalarWhereInput | Prisma.RepositoryScalarWhereInput[]
+}
+
+export type RepositoryUncheckedUpdateManyWithoutTeamNestedInput = {
+  create?: Prisma.XOR<Prisma.RepositoryCreateWithoutTeamInput, Prisma.RepositoryUncheckedCreateWithoutTeamInput> | Prisma.RepositoryCreateWithoutTeamInput[] | Prisma.RepositoryUncheckedCreateWithoutTeamInput[]
+  connectOrCreate?: Prisma.RepositoryCreateOrConnectWithoutTeamInput | Prisma.RepositoryCreateOrConnectWithoutTeamInput[]
+  upsert?: Prisma.RepositoryUpsertWithWhereUniqueWithoutTeamInput | Prisma.RepositoryUpsertWithWhereUniqueWithoutTeamInput[]
+  createMany?: Prisma.RepositoryCreateManyTeamInputEnvelope
+  set?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
+  disconnect?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
+  delete?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
+  connect?: Prisma.RepositoryWhereUniqueInput | Prisma.RepositoryWhereUniqueInput[]
+  update?: Prisma.RepositoryUpdateWithWhereUniqueWithoutTeamInput | Prisma.RepositoryUpdateWithWhereUniqueWithoutTeamInput[]
+  updateMany?: Prisma.RepositoryUpdateManyWithWhereWithoutTeamInput | Prisma.RepositoryUpdateManyWithWhereWithoutTeamInput[]
+  deleteMany?: Prisma.RepositoryScalarWhereInput | Prisma.RepositoryScalarWhereInput[]
 }
 
 export type RepositoryCreateNestedOneWithoutPullRequestsInput = {
@@ -369,16 +463,76 @@ export type RepositoryUpdateOneRequiredWithoutPullRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RepositoryUpdateToOneWithWhereWithoutPullRequestsInput, Prisma.RepositoryUpdateWithoutPullRequestsInput>, Prisma.RepositoryUncheckedUpdateWithoutPullRequestsInput>
 }
 
+export type RepositoryCreateWithoutTeamInput = {
+  id: number
+  name: string
+  fullName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  pullRequests?: Prisma.PullRequestCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryUncheckedCreateWithoutTeamInput = {
+  id: number
+  name: string
+  fullName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  pullRequests?: Prisma.PullRequestUncheckedCreateNestedManyWithoutRepositoryInput
+}
+
+export type RepositoryCreateOrConnectWithoutTeamInput = {
+  where: Prisma.RepositoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutTeamInput, Prisma.RepositoryUncheckedCreateWithoutTeamInput>
+}
+
+export type RepositoryCreateManyTeamInputEnvelope = {
+  data: Prisma.RepositoryCreateManyTeamInput | Prisma.RepositoryCreateManyTeamInput[]
+  skipDuplicates?: boolean
+}
+
+export type RepositoryUpsertWithWhereUniqueWithoutTeamInput = {
+  where: Prisma.RepositoryWhereUniqueInput
+  update: Prisma.XOR<Prisma.RepositoryUpdateWithoutTeamInput, Prisma.RepositoryUncheckedUpdateWithoutTeamInput>
+  create: Prisma.XOR<Prisma.RepositoryCreateWithoutTeamInput, Prisma.RepositoryUncheckedCreateWithoutTeamInput>
+}
+
+export type RepositoryUpdateWithWhereUniqueWithoutTeamInput = {
+  where: Prisma.RepositoryWhereUniqueInput
+  data: Prisma.XOR<Prisma.RepositoryUpdateWithoutTeamInput, Prisma.RepositoryUncheckedUpdateWithoutTeamInput>
+}
+
+export type RepositoryUpdateManyWithWhereWithoutTeamInput = {
+  where: Prisma.RepositoryScalarWhereInput
+  data: Prisma.XOR<Prisma.RepositoryUpdateManyMutationInput, Prisma.RepositoryUncheckedUpdateManyWithoutTeamInput>
+}
+
+export type RepositoryScalarWhereInput = {
+  AND?: Prisma.RepositoryScalarWhereInput | Prisma.RepositoryScalarWhereInput[]
+  OR?: Prisma.RepositoryScalarWhereInput[]
+  NOT?: Prisma.RepositoryScalarWhereInput | Prisma.RepositoryScalarWhereInput[]
+  id?: Prisma.IntFilter<"Repository"> | number
+  name?: Prisma.StringFilter<"Repository"> | string
+  fullName?: Prisma.StringFilter<"Repository"> | string
+  teamId?: Prisma.IntFilter<"Repository"> | number
+  createdAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Repository"> | Date | string
+}
+
 export type RepositoryCreateWithoutPullRequestsInput = {
   id: number
   name: string
+  fullName: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  team: Prisma.TeamCreateNestedOneWithoutRepositoriesInput
 }
 
 export type RepositoryUncheckedCreateWithoutPullRequestsInput = {
   id: number
   name: string
+  fullName: string
+  teamId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -402,13 +556,51 @@ export type RepositoryUpdateToOneWithWhereWithoutPullRequestsInput = {
 export type RepositoryUpdateWithoutPullRequestsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  team?: Prisma.TeamUpdateOneRequiredWithoutRepositoriesNestedInput
 }
 
 export type RepositoryUncheckedUpdateWithoutPullRequestsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  teamId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RepositoryCreateManyTeamInput = {
+  id: number
+  name: string
+  fullName: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RepositoryUpdateWithoutTeamInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pullRequests?: Prisma.PullRequestUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryUncheckedUpdateWithoutTeamInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pullRequests?: Prisma.PullRequestUncheckedUpdateManyWithoutRepositoryNestedInput
+}
+
+export type RepositoryUncheckedUpdateManyWithoutTeamInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -447,8 +639,11 @@ export type RepositoryCountOutputTypeCountPullRequestsArgs<ExtArgs extends runti
 export type RepositorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  fullName?: boolean
+  teamId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
   pullRequests?: boolean | Prisma.Repository$pullRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.RepositoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["repository"]>
@@ -456,40 +651,56 @@ export type RepositorySelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type RepositorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  fullName?: boolean
+  teamId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["repository"]>
 
 export type RepositorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  fullName?: boolean
+  teamId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["repository"]>
 
 export type RepositorySelectScalar = {
   id?: boolean
   name?: boolean
+  fullName?: boolean
+  teamId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RepositoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["repository"]>
+export type RepositoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "fullName" | "teamId" | "createdAt" | "updatedAt", ExtArgs["result"]["repository"]>
 export type RepositoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
   pullRequests?: boolean | Prisma.Repository$pullRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.RepositoryCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type RepositoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type RepositoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type RepositoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
+}
+export type RepositoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
+}
 
 export type $RepositoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Repository"
   objects: {
+    team: Prisma.$TeamPayload<ExtArgs>
     pullRequests: Prisma.$PullRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
+    fullName: string
+    teamId: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["repository"]>
@@ -886,6 +1097,7 @@ readonly fields: RepositoryFieldRefs;
  */
 export interface Prisma__RepositoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  team<T extends Prisma.TeamDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TeamDefaultArgs<ExtArgs>>): Prisma.Prisma__TeamClient<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   pullRequests<T extends Prisma.Repository$pullRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Repository$pullRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PullRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -918,6 +1130,8 @@ export interface Prisma__RepositoryClient<T, Null = never, ExtArgs extends runti
 export interface RepositoryFieldRefs {
   readonly id: Prisma.FieldRef<"Repository", 'Int'>
   readonly name: Prisma.FieldRef<"Repository", 'String'>
+  readonly fullName: Prisma.FieldRef<"Repository", 'String'>
+  readonly teamId: Prisma.FieldRef<"Repository", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Repository", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Repository", 'DateTime'>
 }
@@ -1169,6 +1383,10 @@ export type RepositoryCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    */
   data: Prisma.RepositoryCreateManyInput | Prisma.RepositoryCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepositoryIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1239,6 +1457,10 @@ export type RepositoryUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many Repositories to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RepositoryIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

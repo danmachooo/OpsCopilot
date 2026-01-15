@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const TeamRole = {
+  OWNER: 'OWNER',
+  MEMBER: 'MEMBER'
+} as const
+
+export type TeamRole = (typeof TeamRole)[keyof typeof TeamRole]
+
+
 export const PRStatus = {
   OPEN: 'OPEN',
   CLOSED: 'CLOSED'

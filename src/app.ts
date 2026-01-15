@@ -9,6 +9,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", routes);
-app.all("/api/auth/*", toNodeHandler(auth));
+app.use("/api/auth", toNodeHandler(auth));
 
 export default app;

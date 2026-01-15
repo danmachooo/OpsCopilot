@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -13,13 +7,74 @@ datasource db {
   provider = "postgresql"
 }
 
+model Team {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  // Slack integration (store encrypted string in app layer)
+  slackWebhookUrlEnc String
+
+  // GitHub webhook verification secret (store hashed OR encrypted)
+  githubWebhookSecretEnc String
+
+  // Rule thresholds + toggles (json for now; can normalize later)
+  configs Json @default("{}")
+
+  // Health / verification (for UI status)
+  lastGithubEventAt DateTime?
+  lastSlackSentAt   DateTime?
+
+  // Ownership + membership
+  ownerId String
+  owner   User         @relation("TeamOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members TeamMember[]
+
+  // GitHub org selection (optional)
+  githubOrgId    Int?
+  githubOrgLogin String?
+
+  repositories Repository[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([ownerId])
+}
+
+model TeamMember {
+  id     Int      @id @default(autoincrement())
+  teamId Int
+  userId String
+  role   TeamRole @default(OWNER)
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([teamId, userId])
+  @@index([userId])
+}
+
+enum TeamRole {
+  OWNER
+  MEMBER
+}
+
 model Repository {
-  id           Int           @id
-  name         String
+  id       Int    @id // GitHub repository ID
+  name     String
+  fullName String // "org/repo" for display + uniqueness
+  teamId   Int
+  team     Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
   pullRequests PullRequest[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([teamId, fullName])
+  @@index([teamId])
 }
 
 model PullRequest {
@@ -43,12 +98,13 @@ model PullRequest {
   reviewers          Json?
   completedReviewers Json?
 
-  repository Repository @relation(fields: [repoId], references: [id])
+  repository Repository @relation(fields: [repoId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([repoId, prNumber])
+  @@index([repoId])
 }
 
 enum PRStatus {
@@ -56,16 +112,23 @@ enum PRStatus {
   CLOSED
 }
 
+// ---------- Better Auth tables (kept) ----------
+
 model User {
-  id            String    @id
+  id            String   @id
   name          String
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean  @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  sessions Session[]
+  accounts Account[]
+
+  // Team relationships
+  ownedTeams  Team[]       @relation("TeamOwner")
+  memberships TeamMember[]
 
   @@unique([email])
   @@map("user")
