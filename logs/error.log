@@ -310,3 +310,30 @@
 [31m       })[39m
 
 [31mInvalid value for argument `openedAt`: Provided Date object is invalid. Expected Date.[39m
+2026-01-16 21:21:02:212 [31merror[39m: [31mError creating team: [39m
+[31mInvalid `prisma.team.create()` invocation in[39m
+[31mC:\Users\PC\OpsCopilot\src\services\team.service.ts:63:28[39m
+
+[31m  60 }[39m
+[31m  61 [39m
+[31m  62 export async function createTeam(data: CreateTeamInput) {[39m
+[31m→ 63   return await prisma.team.create([39m
+[31mForeign key constraint violated on the constraint: `Team_ownerId_fkey`[39m
+2026-01-16 21:22:54:2254 [31merror[39m: [31mError creating team: [39m
+[31mInvalid `prisma.team.create()` invocation in[39m
+[31mC:\Users\PC\OpsCopilot\src\services\team.service.ts:63:28[39m
+
+[31m  60 }[39m
+[31m  61 [39m
+[31m  62 export async function createTeam(data: CreateTeamInput) {[39m
+[31m→ 63   return await prisma.team.create([39m
+[31mForeign key constraint violated on the constraint: `Team_ownerId_fkey`[39m
+2026-01-16 21:25:39:2539 [31merror[39m: [31mError creating team: [39m
+[31mInvalid `prisma.team.create()` invocation in[39m
+[31mC:\Users\PC\OpsCopilot\src\services\team.service.ts:63:28[39m
+
+[31m  60 }[39m
+[31m  61 [39m
+[31m  62 export async function createTeam(data: CreateTeamInput) {[39m
+[31m→ 63   return await prisma.team.create([39m
+[31mForeign key constraint violated on the constraint: `Team_ownerId_fkey`[39m

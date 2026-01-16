@@ -224,8 +224,8 @@ export type TeamGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type TeamGroupByOutputType = {
   id: number
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc: string | null
+  githubWebhookSecretEnc: string | null
   configs: runtime.JsonValue
   lastGithubEventAt: Date | null
   lastSlackSentAt: Date | null
@@ -262,8 +262,8 @@ export type TeamWhereInput = {
   NOT?: Prisma.TeamWhereInput | Prisma.TeamWhereInput[]
   id?: Prisma.IntFilter<"Team"> | number
   name?: Prisma.StringFilter<"Team"> | string
-  slackWebhookUrlEnc?: Prisma.StringFilter<"Team"> | string
-  githubWebhookSecretEnc?: Prisma.StringFilter<"Team"> | string
+  slackWebhookUrlEnc?: Prisma.StringNullableFilter<"Team"> | string | null
+  githubWebhookSecretEnc?: Prisma.StringNullableFilter<"Team"> | string | null
   configs?: Prisma.JsonFilter<"Team">
   lastGithubEventAt?: Prisma.DateTimeNullableFilter<"Team"> | Date | string | null
   lastSlackSentAt?: Prisma.DateTimeNullableFilter<"Team"> | Date | string | null
@@ -280,8 +280,8 @@ export type TeamWhereInput = {
 export type TeamOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  slackWebhookUrlEnc?: Prisma.SortOrder
-  githubWebhookSecretEnc?: Prisma.SortOrder
+  slackWebhookUrlEnc?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubWebhookSecretEnc?: Prisma.SortOrderInput | Prisma.SortOrder
   configs?: Prisma.SortOrder
   lastGithubEventAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSlackSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -297,16 +297,16 @@ export type TeamOrderByWithRelationInput = {
 
 export type TeamWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  ownerId?: string
   AND?: Prisma.TeamWhereInput | Prisma.TeamWhereInput[]
   OR?: Prisma.TeamWhereInput[]
   NOT?: Prisma.TeamWhereInput | Prisma.TeamWhereInput[]
   name?: Prisma.StringFilter<"Team"> | string
-  slackWebhookUrlEnc?: Prisma.StringFilter<"Team"> | string
-  githubWebhookSecretEnc?: Prisma.StringFilter<"Team"> | string
+  slackWebhookUrlEnc?: Prisma.StringNullableFilter<"Team"> | string | null
+  githubWebhookSecretEnc?: Prisma.StringNullableFilter<"Team"> | string | null
   configs?: Prisma.JsonFilter<"Team">
   lastGithubEventAt?: Prisma.DateTimeNullableFilter<"Team"> | Date | string | null
   lastSlackSentAt?: Prisma.DateTimeNullableFilter<"Team"> | Date | string | null
-  ownerId?: Prisma.StringFilter<"Team"> | string
   githubOrgId?: Prisma.IntNullableFilter<"Team"> | number | null
   githubOrgLogin?: Prisma.StringNullableFilter<"Team"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Team"> | Date | string
@@ -314,13 +314,13 @@ export type TeamWhereUniqueInput = Prisma.AtLeast<{
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   members?: Prisma.TeamMemberListRelationFilter
   repositories?: Prisma.RepositoryListRelationFilter
-}, "id">
+}, "id" | "ownerId">
 
 export type TeamOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  slackWebhookUrlEnc?: Prisma.SortOrder
-  githubWebhookSecretEnc?: Prisma.SortOrder
+  slackWebhookUrlEnc?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubWebhookSecretEnc?: Prisma.SortOrderInput | Prisma.SortOrder
   configs?: Prisma.SortOrder
   lastGithubEventAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSlackSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -342,8 +342,8 @@ export type TeamScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TeamScalarWhereWithAggregatesInput | Prisma.TeamScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Team"> | number
   name?: Prisma.StringWithAggregatesFilter<"Team"> | string
-  slackWebhookUrlEnc?: Prisma.StringWithAggregatesFilter<"Team"> | string
-  githubWebhookSecretEnc?: Prisma.StringWithAggregatesFilter<"Team"> | string
+  slackWebhookUrlEnc?: Prisma.StringNullableWithAggregatesFilter<"Team"> | string | null
+  githubWebhookSecretEnc?: Prisma.StringNullableWithAggregatesFilter<"Team"> | string | null
   configs?: Prisma.JsonWithAggregatesFilter<"Team">
   lastGithubEventAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Team"> | Date | string | null
   lastSlackSentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Team"> | Date | string | null
@@ -356,8 +356,8 @@ export type TeamScalarWhereWithAggregatesInput = {
 
 export type TeamCreateInput = {
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -373,8 +373,8 @@ export type TeamCreateInput = {
 export type TeamUncheckedCreateInput = {
   id?: number
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -389,8 +389,8 @@ export type TeamUncheckedCreateInput = {
 
 export type TeamUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -406,8 +406,8 @@ export type TeamUpdateInput = {
 export type TeamUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -423,8 +423,8 @@ export type TeamUncheckedUpdateInput = {
 export type TeamCreateManyInput = {
   id?: number
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -437,8 +437,8 @@ export type TeamCreateManyInput = {
 
 export type TeamUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -451,8 +451,8 @@ export type TeamUpdateManyMutationInput = {
 export type TeamUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -535,6 +535,10 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
@@ -545,10 +549,6 @@ export type NullableIntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -635,8 +635,8 @@ export type TeamUncheckedUpdateManyWithoutOwnerNestedInput = {
 
 export type TeamCreateWithoutMembersInput = {
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -651,8 +651,8 @@ export type TeamCreateWithoutMembersInput = {
 export type TeamUncheckedCreateWithoutMembersInput = {
   id?: number
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -682,8 +682,8 @@ export type TeamUpdateToOneWithWhereWithoutMembersInput = {
 
 export type TeamUpdateWithoutMembersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -698,8 +698,8 @@ export type TeamUpdateWithoutMembersInput = {
 export type TeamUncheckedUpdateWithoutMembersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -713,8 +713,8 @@ export type TeamUncheckedUpdateWithoutMembersInput = {
 
 export type TeamCreateWithoutRepositoriesInput = {
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -729,8 +729,8 @@ export type TeamCreateWithoutRepositoriesInput = {
 export type TeamUncheckedCreateWithoutRepositoriesInput = {
   id?: number
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -760,8 +760,8 @@ export type TeamUpdateToOneWithWhereWithoutRepositoriesInput = {
 
 export type TeamUpdateWithoutRepositoriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -776,8 +776,8 @@ export type TeamUpdateWithoutRepositoriesInput = {
 export type TeamUncheckedUpdateWithoutRepositoriesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -791,8 +791,8 @@ export type TeamUncheckedUpdateWithoutRepositoriesInput = {
 
 export type TeamCreateWithoutOwnerInput = {
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -807,8 +807,8 @@ export type TeamCreateWithoutOwnerInput = {
 export type TeamUncheckedCreateWithoutOwnerInput = {
   id?: number
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -852,8 +852,8 @@ export type TeamScalarWhereInput = {
   NOT?: Prisma.TeamScalarWhereInput | Prisma.TeamScalarWhereInput[]
   id?: Prisma.IntFilter<"Team"> | number
   name?: Prisma.StringFilter<"Team"> | string
-  slackWebhookUrlEnc?: Prisma.StringFilter<"Team"> | string
-  githubWebhookSecretEnc?: Prisma.StringFilter<"Team"> | string
+  slackWebhookUrlEnc?: Prisma.StringNullableFilter<"Team"> | string | null
+  githubWebhookSecretEnc?: Prisma.StringNullableFilter<"Team"> | string | null
   configs?: Prisma.JsonFilter<"Team">
   lastGithubEventAt?: Prisma.DateTimeNullableFilter<"Team"> | Date | string | null
   lastSlackSentAt?: Prisma.DateTimeNullableFilter<"Team"> | Date | string | null
@@ -867,8 +867,8 @@ export type TeamScalarWhereInput = {
 export type TeamCreateManyOwnerInput = {
   id?: number
   name: string
-  slackWebhookUrlEnc: string
-  githubWebhookSecretEnc: string
+  slackWebhookUrlEnc?: string | null
+  githubWebhookSecretEnc?: string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Date | string | null
   lastSlackSentAt?: Date | string | null
@@ -880,8 +880,8 @@ export type TeamCreateManyOwnerInput = {
 
 export type TeamUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -896,8 +896,8 @@ export type TeamUpdateWithoutOwnerInput = {
 export type TeamUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -912,8 +912,8 @@ export type TeamUncheckedUpdateWithoutOwnerInput = {
 export type TeamUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slackWebhookUrlEnc?: Prisma.StringFieldUpdateOperationsInput | string
-  githubWebhookSecretEnc?: Prisma.StringFieldUpdateOperationsInput | string
+  slackWebhookUrlEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubWebhookSecretEnc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   configs?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   lastGithubEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastSlackSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1053,8 +1053,8 @@ export type $TeamPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
-    slackWebhookUrlEnc: string
-    githubWebhookSecretEnc: string
+    slackWebhookUrlEnc: string | null
+    githubWebhookSecretEnc: string | null
     configs: runtime.JsonValue
     lastGithubEventAt: Date | null
     lastSlackSentAt: Date | null

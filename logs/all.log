@@ -1675,3 +1675,417 @@
 2026-01-15 20:20:04:204 [33mwarn[39m: [33mCron: Found 1 unreviewed PR(s)[39m
 2026-01-15 20:20:04:204 [33mwarn[39m: [33mCron: Found 1 stalled PR(s)[39m
 2026-01-15 20:20:05:205 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:45:50:4550 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 20:45:51:4551 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 20:45:51:4551 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 20:46:03:463 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:46:05:465 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:47:03:473 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:47:04:474 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:48:03:483 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:48:04:484 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:49:03:493 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:49:04:494 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:50:03:503 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:50:04:504 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:51:03:513 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:51:04:514 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:52:03:523 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:52:04:524 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:53:03:533 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:53:04:534 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:54:03:543 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:54:04:544 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:55:03:553 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:55:04:554 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:56:03:563 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:56:04:564 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:57:03:573 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:57:04:574 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:58:03:583 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:58:04:584 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 20:59:03:593 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 20:59:04:594 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:00:03:03 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:00:04:04 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:01:03:13 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:01:04:14 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:02:03:23 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:02:04:24 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:03:03:33 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:03:04:34 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:04:03:43 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:04:04:44 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:05:03:53 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:05:04:54 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:06:03:63 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:06:04:64 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:07:03:73 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:07:04:74 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:08:03:83 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:08:04:84 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:09:03:93 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:09:04:94 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:10:03:103 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:10:04:104 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:11:03:113 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:11:05:115 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:12:03:123 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:12:04:124 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:13:03:133 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:13:04:134 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:14:03:143 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:14:04:144 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:15:03:153 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:15:04:154 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:16:03:163 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:16:04:164 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:16:50:1650 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 21:17:03:173 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:17:04:174 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:18:03:183 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:18:05:185 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:19:03:193 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:19:05:195 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:20:03:203 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:20:05:205 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:21:02:212 [31merror[39m: [31mError creating team: [39m
+[31mInvalid `prisma.team.create()` invocation in[39m
+[31mC:\Users\PC\OpsCopilot\src\services\team.service.ts:63:28[39m
+
+[31m  60 }[39m
+[31m  61 [39m
+[31m  62 export async function createTeam(data: CreateTeamInput) {[39m
+[31m→ 63   return await prisma.team.create([39m
+[31mForeign key constraint violated on the constraint: `Team_ownerId_fkey`[39m
+2026-01-16 21:21:03:213 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:21:04:214 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:22:47:2247 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 21:22:47:2247 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 21:22:47:2247 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 21:22:54:2254 [31merror[39m: [31mError creating team: [39m
+[31mInvalid `prisma.team.create()` invocation in[39m
+[31mC:\Users\PC\OpsCopilot\src\services\team.service.ts:63:28[39m
+
+[31m  60 }[39m
+[31m  61 [39m
+[31m  62 export async function createTeam(data: CreateTeamInput) {[39m
+[31m→ 63   return await prisma.team.create([39m
+[31mForeign key constraint violated on the constraint: `Team_ownerId_fkey`[39m
+2026-01-16 21:23:03:233 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:23:04:234 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:24:03:243 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:24:04:244 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:25:03:253 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:25:04:254 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:25:39:2539 [31merror[39m: [31mError creating team: [39m
+[31mInvalid `prisma.team.create()` invocation in[39m
+[31mC:\Users\PC\OpsCopilot\src\services\team.service.ts:63:28[39m
+
+[31m  60 }[39m
+[31m  61 [39m
+[31m  62 export async function createTeam(data: CreateTeamInput) {[39m
+[31m→ 63   return await prisma.team.create([39m
+[31mForeign key constraint violated on the constraint: `Team_ownerId_fkey`[39m
+2026-01-16 21:26:03:263 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:26:04:264 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:27:03:273 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:27:04:274 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:28:03:283 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:28:04:284 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:29:03:293 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:29:04:294 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:30:03:303 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:30:04:304 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:31:03:313 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:31:04:314 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:32:03:323 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:32:05:325 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:33:03:333 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:33:05:335 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:34:03:343 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:34:04:344 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:35:03:353 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:35:04:354 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:35:36:3536 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 21:36:03:363 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:36:04:364 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:37:03:373 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:37:04:374 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:38:03:383 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:38:04:384 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:39:03:393 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:39:04:394 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:40:03:403 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:40:04:404 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:41:03:413 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:41:04:414 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:42:03:423 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:42:04:424 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:43:03:433 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:43:04:434 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:44:03:443 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:44:04:444 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:45:03:453 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:45:04:454 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:46:03:463 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:46:04:464 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:47:03:473 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:47:04:474 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:48:03:483 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:48:04:484 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:48:22:4822 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 21:49:03:493 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:49:06:496 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:50:03:503 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:50:04:504 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 21:50:57:5057 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 21:51:03:513 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 21:51:04:514 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:13:55:1355 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:13:55:1355 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:14:03:143 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:14:06:146 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:14:39:1439 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:14:39:1439 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:15:03:153 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:15:07:157 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:15:07:157 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:16:03:163 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:16:04:164 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:16:47:1647 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:16:47:1647 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:16:47:1647 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:17:03:173 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:17:04:174 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:18:03:183 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:18:04:184 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:19:03:193 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:19:04:194 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:20:03:203 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:20:04:204 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:21:03:213 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:21:04:214 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:21:13:2113 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:21:13:2113 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:21:14:2114 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:22:03:223 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:22:04:224 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:23:03:233 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:23:04:234 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:24:03:243 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:24:04:244 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:25:03:253 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:25:04:254 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:26:03:263 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:26:04:264 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:27:03:273 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:27:04:274 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:28:03:283 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:28:04:284 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:29:03:293 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:29:04:294 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:30:03:303 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:30:05:305 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:31:03:313 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:31:04:314 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:37:16:3716 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:37:16:3716 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:37:16:3716 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:37:51:3751 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:39:21:3921 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:39:21:3921 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:39:22:3922 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:40:03:403 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:40:04:404 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:41:03:413 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:41:04:414 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:42:03:423 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:42:04:424 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:43:03:433 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:43:04:434 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:44:03:443 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:44:04:444 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:44:13:4413 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:44:13:4413 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:44:13:4413 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:45:03:453 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:45:04:454 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:45:30:4530 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:45:45:4545 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:45:45:4545 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:45:45:4545 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:46:03:463 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:46:03:463 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:46:04:464 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:46:04:464 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:47:03:473 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:47:03:473 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:47:04:474 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:47:04:474 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:48:03:483 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:48:03:483 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:48:04:484 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:48:04:484 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:49:03:493 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:49:03:493 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:49:04:494 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:49:04:494 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:50:03:503 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:50:03:503 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:50:04:504 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:50:04:504 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:50:32:5032 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:50:37:5037 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:50:37:5037 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:50:37:5037 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:51:03:513 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:51:03:513 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:51:04:514 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:51:04:514 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:51:51:5151 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:51:51:5151 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:52:00:520 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:52:00:520 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:52:03:523 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:52:03:523 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:52:04:524 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:52:05:525 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:52:18:5218 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:52:18:5218 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:52:18:5218 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:53:03:533 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:53:03:533 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:53:04:534 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:53:04:534 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:53:24:5324 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:53:24:5324 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:53:30:5330 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:53:30:5330 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:53:31:5331 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:53:49:5349 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:53:49:5349 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:54:03:543 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:54:03:543 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:54:04:544 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:54:04:544 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:55:03:553 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:55:03:553 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:55:05:555 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:55:05:555 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:56:03:563 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:56:03:563 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:56:04:564 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:56:04:564 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:57:03:573 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:57:03:573 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:57:04:574 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:57:04:574 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:58:03:583 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:58:03:583 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:58:04:584 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:58:04:584 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:59:03:593 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:59:03:593 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 22:59:04:594 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:59:04:594 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 22:59:30:5930 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 22:59:30:5930 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 22:59:50:5950 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 22:59:50:5950 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:00:02:02 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 23:00:02:02 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 23:00:03:03 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:00:03:03 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:00:03:03 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:00:04:04 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:00:04:04 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:01:03:13 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:01:03:13 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:01:04:14 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:01:04:14 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:02:03:23 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:02:03:23 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:02:04:24 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:02:04:24 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:03:03:33 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:03:03:33 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:03:04:34 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:03:04:34 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:04:03:43 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:04:03:43 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:04:04:44 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:04:04:44 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:04:29:429 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:04:33:433 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 23:04:33:433 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 23:04:33:433 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:05:03:53 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:05:03:53 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:05:04:54 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:05:04:54 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:06:03:63 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:06:03:63 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:06:04:64 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:06:04:64 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:07:03:73 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:07:03:73 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:07:04:74 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:07:04:74 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:08:03:83 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:08:03:83 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:08:04:84 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:08:04:84 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:08:34:834 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:08:34:834 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:09:03:93 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:09:04:94 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:10:03:103 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:10:04:104 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:11:03:113 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:11:04:114 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:12:03:123 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:12:04:124 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:12:56:1256 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 23:12:56:1256 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 23:12:57:1257 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:13:03:133 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:13:03:133 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:13:04:134 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:13:04:134 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:14:03:143 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:14:03:143 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:14:04:144 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:14:04:144 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:15:03:153 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:15:03:153 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:15:04:154 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:15:04:154 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:15:42:1542 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:15:45:1545 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 23:15:45:1545 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 23:15:46:1546 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:16:03:163 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:16:03:163 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:16:05:165 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:16:05:165 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:17:03:173 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:17:03:173 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:17:04:174 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:17:04:174 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:18:03:183 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:18:03:183 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:18:04:184 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:18:04:184 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:18:46:1846 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:18:49:1849 [32minfo[39m: [32m🧠 OpsCopilot cron worker starting...[39m
+2026-01-16 23:18:49:1849 [32minfo[39m: [32m✅ OpsCopilot cron worker is running[39m
+2026-01-16 23:18:49:1849 [32minfo[39m: [32m🚀 OpsCopilot API running on port 3000[39m
+2026-01-16 23:19:03:193 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:19:03:193 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:19:04:194 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:19:04:194 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:20:03:203 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:20:03:203 [32minfo[39m: [32mCron: Starting PR Health Checks...[39m
+2026-01-16 23:20:04:204 [32minfo[39m: [32mCron: PR Health Checks finished.[39m
+2026-01-16 23:20:04:204 [32minfo[39m: [32mCron: PR Health Checks finished.[39m

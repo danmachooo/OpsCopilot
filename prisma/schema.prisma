@@ -12,10 +12,10 @@ model Team {
   name String
 
   // Slack integration (store encrypted string in app layer)
-  slackWebhookUrlEnc String
+  slackWebhookUrlEnc String?
 
   // GitHub webhook verification secret (store hashed OR encrypted)
-  githubWebhookSecretEnc String
+  githubWebhookSecretEnc String?
 
   // Rule thresholds + toggles (json for now; can normalize later)
   configs Json @default("{}")
@@ -38,14 +38,14 @@ model Team {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([ownerId])
+@@unique([ownerId])
 }
 
 model TeamMember {
   id     Int      @id @default(autoincrement())
   teamId Int
   userId String
-  role   TeamRole @default(OWNER)
+  role   TeamRole @default(MEMBER)
 
   team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

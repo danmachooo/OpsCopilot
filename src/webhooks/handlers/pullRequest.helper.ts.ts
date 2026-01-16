@@ -7,6 +7,8 @@ export function mapGitHubPayload(payload: PullRequestEvent) {
   return {
     repoId: repository.id,
     repoName: repository.name,
+    repoFullName: repository.full_name, // Add this
+    teamId: repository.owner.id,
     prNumber: pull_request.number,
     title: pull_request.title,
     status: PRStatus.OPEN,
