@@ -3,9 +3,9 @@ import {
   createTeam,
   getMyTeam,
   onboardTeam,
-  provisionGithub,
+  createTeamGithubWebhook,
   updateConfigs,
-  updateSlack,
+  updateTeamSlackWebhook,
   updateTeam,
 } from "../controllers/team.controller";
 import { requireAuth } from "../middlewares/requireAuth";
@@ -20,7 +20,7 @@ router.post("/", createTeam);
 
 router.patch("/:teamId", updateTeam);
 router.patch("/:teamId/configs", updateConfigs);
-router.patch("/:teamId/slack", updateSlack);
-router.post("/:teamId/github/webhook", provisionGithub);
+router.patch("/:teamId/slack", updateTeamSlackWebhook);
+router.post("/:teamId/github/webhook", createTeamGithubWebhook);
 
 export default router;

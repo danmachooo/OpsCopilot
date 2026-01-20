@@ -2,18 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import { auth } from "../lib/auth";
 import { toFetchHeaders } from "../helpers/toFetchHeaders";
 
-// declare global {
-//   namespace Express {
-//     interface Request {
-//       user?: { id: string };
-//     }
-//   }
-// }
-
 export async function requireAuth(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     // NOTE: adjust API name based on your Better Auth instance
