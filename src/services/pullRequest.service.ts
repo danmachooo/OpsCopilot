@@ -4,7 +4,7 @@ import {
   PullRequestIdentifier,
   ClosePullRequestInput,
   UpsertPullRequest,
-} from "./types";
+} from "./pullRequest.types";
 import { RequestedReviewer } from "../schema/webhook.schema";
 // --- Service Functions ---
 

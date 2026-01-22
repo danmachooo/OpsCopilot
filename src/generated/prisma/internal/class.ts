@@ -17,8 +17,8 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.2.0",
-  "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
+  "clientVersion": "7.3.0",
+  "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Team {\n  id   Int    @id @default(autoincrement())\n  name String\n\n  // Slack integration (store encrypted string in app layer)\n  slackWebhookUrlEnc String?\n\n  // GitHub webhook verification secret (store hashed OR encrypted)\n  githubWebhookSecretEnc String?\n\n  // Rule thresholds + toggles (json for now; can normalize later)\n  configs Json @default(\"{}\")\n\n  // Health / verification (for UI status)\n  lastGithubEventAt DateTime?\n  lastSlackSentAt   DateTime?\n  lastRuleRunAt     DateTime?\n  lastRuleErrorAt   DateTime?\n  // Ownership + membership\n  ownerId           String\n  owner             User         @relation(\"TeamOwner\", fields: [ownerId], references: [id], onDelete: Cascade)\n  members           TeamMember[]\n\n  // GitHub org selection (optional)\n  githubOrgId    Int?\n  githubOrgLogin String?\n\n  repositories Repository[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([ownerId])\n}\n\nmodel TeamMember {\n  id     Int      @id @default(autoincrement())\n  teamId Int\n  userId String\n  role   TeamRole @default(MEMBER)\n\n  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n\n  @@unique([teamId, userId])\n  @@index([userId])\n}\n\nenum TeamRole {\n  OWNER\n  MEMBER\n}\n\nmodel Repository {\n  id       Int    @id // GitHub repository ID\n  name     String\n  fullName String // \"org/repo\" for display + uniqueness\n  teamId   Int\n  team     Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)\n\n  pullRequests PullRequest[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([teamId, fullName])\n  @@index([teamId])\n}\n\nmodel PullRequest {\n  id       Int      @id @default(autoincrement())\n  repoId   Int\n  prNumber Int\n  title    String\n  status   PRStatus\n\n  openedAt DateTime\n  closedAt DateTime?\n\n  staleAlertAt DateTime?\n\n  reviewCount       Int       @default(0)\n  lastReviewAt      DateTime?\n  unreviewedAlertAt DateTime?\n  lastCommitAt      DateTime?\n  stalledAlertAt    DateTime?\n\n  reviewers          Json?\n  completedReviewers Json?\n\n  repository Repository @relation(fields: [repoId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([repoId, prNumber])\n  @@index([repoId])\n}\n\nenum PRStatus {\n  OPEN\n  CLOSED\n}\n\n// ---------- Better Auth tables (kept) ----------\n\nmodel User {\n  id            String   @id\n  name          String\n  email         String\n  emailVerified Boolean  @default(false)\n  image         String?\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n\n  sessions Session[]\n  accounts Account[]\n\n  // Team relationships\n  ownedTeams  Team[]       @relation(\"TeamOwner\")\n  memberships TeamMember[]\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@index([userId])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime  @default(now())\n  updatedAt             DateTime  @updatedAt\n\n  @@index([userId])\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String   @id\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  @@index([identifier])\n  @@map(\"verification\")\n}\n",
   "runtimeDataModel": {
@@ -37,12 +37,14 @@ async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Modul
 }
 
 config.compilerWasm = {
-  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_bg.postgresql.mjs"),
+  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.mjs"),
 
   getQueryCompilerWasmModule: async () => {
-    const { wasm } = await import("@prisma/client/runtime/query_compiler_bg.postgresql.wasm-base64.mjs")
+    const { wasm } = await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.wasm-base64.mjs")
     return await decodeBase64AsWasm(wasm)
-  }
+  },
+
+  importName: "./query_compiler_fast_bg.js"
 }
 
 
