@@ -18,6 +18,14 @@ export async function getTeamByOwner(ownerId: string) {
   });
 }
 
+export async function getTeamsWithWebhook() {
+  return await prisma.team.findMany({
+    // only teams with configured Slack integration
+    where: { slackWebhookUrlEnc: { not: null } },
+    select: { id: true, slackWebhookUrlEnc: true },
+  });
+}
+
 export async function getTeamByIdForOwner(teamId: number, ownerId: string) {
   return prisma.team.findFirst({
     where: { id: teamId, ownerId },

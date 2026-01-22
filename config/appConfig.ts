@@ -2,6 +2,7 @@ import { env } from "./env";
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const STALL_HOURS = 48;
+const MAX_ALERTS_PER_TEAM = 20;
 
 export const appConfig = {
   app: {
@@ -9,6 +10,7 @@ export const appConfig = {
     url: env.BASE_URL,
     nodeEnv: env.NODE_ENV,
     msPerDay: MS_PER_DAY,
+    maxAlertsPerTeam: MAX_ALERTS_PER_TEAM,
   },
   thresholds: {
     staleDays: env.STALE_DAYS_DEFAULT,

@@ -1,5 +1,12 @@
 import cron from "node-cron";
 import Logger from "../utils/logger";
+import { prisma } from "../lib/prisma";
+import { decryptSecret } from "../services/secrets.service";
+import { aadFor } from "../helpers/aadFor";
+import {
+  bulkUpdateLastRuleRunAt,
+  bulkUpdateLastRuleErrorAt,
+} from "../services/system.service";
 import { findStalePullRequests } from "../rules/stalePr.rule";
 import { findUnreviewedPullRequests } from "../rules/unreviewedPr.rule";
 import { findStalledPrs } from "../rules/stalledPr.rule";
@@ -8,109 +15,116 @@ import {
   alertOnStalledPRs,
   alertOnUnreviewedPRs,
 } from "../services/alert.service";
-import {
-  updateLastRuleRunAt,
-  updateLastRuleErrorAt,
-  bulkUpdateLastRuleRunAt,
-  bulkUpdateLastRuleErrorAt,
-} from "../services/system.service";
-import { prisma } from "../lib/prisma";
-import { decryptSecret } from "../services/secrets.service";
-import { aadFor } from "../helpers/aadFor";
+import { getTeamsWithWebhook } from "../services/team.service";
 
 let isRunning = false;
 
 export async function startCronJobs() {
-  // Runs every 10 seconds
-  cron.schedule("*/10 * * * * *", async () => {
+  // Every 5 minutes at second 0
+  cron.schedule("0 */5 * * * *", async () => {
     if (isRunning) {
       Logger.warn("Cron: Previous run still in progress, skipping tick");
       return;
     }
 
-    // Track result timestamp for each team
-    const successfulTeams: number[] = [];
-    const erroredTeams: number[] = [];
-
     isRunning = true;
     Logger.info("Cron: Starting PR Health Checks...");
 
+    const successfulTeams: number[] = [];
+    const erroredTeams: number[] = [];
+
     try {
-      const teams = await prisma.team.findMany({
-        select: { id: true, slackWebhookUrlEnc: true },
-      });
+      const teams = await getTeamsWithWebhook();
 
       for (const team of teams) {
         const teamId = team.id;
 
-        // Decrypt Slack Webhook
-        let slackWebhookUrl = "";
         try {
-          slackWebhookUrl = decryptSecret(
-            team.slackWebhookUrlEnc,
-            aadFor(teamId, "slack"),
-          );
-        } catch (e: any) {
-          Logger.error("Cron: Failed to decrypt Slack webhook", {
-            teamId,
-            error: e?.message ?? String(e),
-          });
-        }
-
-        try {
-          // Execute Rules
+          // 1) Execute rules first (no decrypt unless needed)
           const [stalePRs, unreviewedPrs, stalledPrs] = await Promise.all([
             findStalePullRequests(teamId),
             findUnreviewedPullRequests(teamId),
             findStalledPrs(teamId),
           ]);
 
-          // Handle Alerts
-          if (!slackWebhookUrl) {
-            if (stalePRs.length || unreviewedPrs.length || stalledPrs.length) {
-              Logger.warn(
-                "Cron: Alerts skipped (no Slack webhook configured)",
-                {
-                  teamId,
-                  results: {
-                    stale: stalePRs.length,
-                    unreviewed: unreviewedPrs.length,
-                    stalled: stalledPrs.length,
-                  },
-                },
-              );
-            }
-          } else {
-            if (stalePRs.length)
-              await alertOnStalePRs(stalePRs, slackWebhookUrl);
-            if (unreviewedPrs.length)
-              await alertOnUnreviewedPRs(unreviewedPrs, slackWebhookUrl);
-            if (stalledPrs.length)
-              await alertOnStalledPRs(stalledPrs, slackWebhookUrl);
+          const found = {
+            stale: stalePRs.length,
+            unreviewed: unreviewedPrs.length,
+            stalled: stalledPrs.length,
+          };
+
+          const totalFound = found.stale + found.unreviewed + found.stalled;
+
+          // Nothing to do for this team
+          if (totalFound === 0) {
+            successfulTeams.push(teamId);
+            continue;
           }
 
-          // Success: Update Last Rule Run
+          // 2) Decrypt Slack webhook only if we need to send alerts
+          let slackWebhookUrl = "";
+          try {
+            slackWebhookUrl = decryptSecret(
+              team.slackWebhookUrlEnc,
+              aadFor(teamId, "slack"),
+            );
+          } catch (e: any) {
+            Logger.error("Cron: Failed to decrypt Slack webhook", {
+              teamId,
+              error: e?.message ?? String(e),
+            });
+          }
 
-          // await updateLastRuleRunAt(teamId); // Use only for small number of teams in db
-          successfulTeams.push(team.id);
+          const sentStale = await alertOnStalePRs(stalePRs, slackWebhookUrl);
+          const sentUnreviewed = await alertOnUnreviewedPRs(
+            unreviewedPrs,
+            slackWebhookUrl,
+          );
+          const sentStalled = await alertOnStalledPRs(
+            stalledPrs,
+            slackWebhookUrl,
+          );
+
+          const totalSent = sentStale + sentUnreviewed + sentStalled;
+
+          if (sentStale > 0) {
+            Logger.info("Cron: Slack alerts dispatched for stale PRs", {
+              teamId,
+              count: sentStale,
+            });
+          }
+          if (sentUnreviewed > 0) {
+            Logger.info("Cron: Slack alerts dispatched for unreviewed PRs", {
+              teamId,
+              count: sentUnreviewed,
+            });
+          }
+          if (sentStalled > 0) {
+            Logger.info("Cron: Slack alerts dispatched for stalled PRs", {
+              teamId,
+              count: sentStalled,
+            });
+          }
+
+          if (totalFound > 0 && totalSent === 0) {
+            Logger.info(
+              "Cron: PR issues exist but Slack notifications were already sent previously",
+              { teamId },
+            );
+          }
+
+          successfulTeams.push(teamId);
 
           Logger.info("Cron: PR Health Checks finished.", {
             teamId,
-            results: {
-              stale: stalePRs.length,
-              unreviewed: unreviewedPrs.length,
-              stalled: stalledPrs.length,
-            },
+            results: found,
           });
         } catch (err: any) {
-          // 5. Failure: Update Last Error
           Logger.error("Cron: Team PR check failed", {
             teamId,
             error: err?.message ?? String(err),
           });
-
-          // await updateLastRuleErrorAt(teamId); // Use only for small number of teams in db
-          erroredTeams.push(team.id);
+          erroredTeams.push(teamId);
         }
       }
     } catch (err: any) {
@@ -119,6 +133,7 @@ export async function startCronJobs() {
       });
     } finally {
       isRunning = false;
+
       await Promise.all([
         bulkUpdateLastRuleRunAt(successfulTeams),
         bulkUpdateLastRuleErrorAt(erroredTeams),

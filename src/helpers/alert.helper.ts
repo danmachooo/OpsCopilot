@@ -1,5 +1,8 @@
 import { getHoursAgo } from "../helpers/hoursAgo";
 import { RequestedReviewer } from "../schema/webhook.schema";
+import { SlackAlertResult, sendSlackAlert } from "../services/slack.service";
+import { enqueueWebhook } from "../utils/slackQueue";
+import { sleep } from "./sleep";
 /**
  * Safely parse reviewers from Json field
  */
@@ -21,7 +24,7 @@ export function formatReviewerNames(reviewers: RequestedReviewer[]): string {
 export function getLastReviewer(completedReviewers: unknown): string {
   const history = parseReviewers(completedReviewers);
   return history.length > 0
-    ? history[history.length - 1].login ?? "N/A"
+    ? (history[history.length - 1].login ?? "N/A")
     : "N/A";
 }
 /**
@@ -29,7 +32,7 @@ export function getLastReviewer(completedReviewers: unknown): string {
  */
 export function formatLastActivity(
   lastReviewAt: Date | null,
-  lastReviewer: string
+  lastReviewer: string,
 ): string {
   if (lastReviewer === "N/A") {
     return "No one has reviewed this PR yet.";
@@ -51,4 +54,21 @@ export function formatPRLink(prNumber: number, title: string): string {
  */
 export function formatOpenedDate(openedAt: Date): string {
   return `${openedAt.toLocaleDateString()} (${getHoursAgo(openedAt)})`;
+}
+
+/**
+ *
+ * @param slackWebhookUrl The decrypted webhook url
+ * @param message The message to be dispatched
+ * @returns Returns status and attempts
+ */
+export async function sendQueued(
+  slackWebhookUrl: string,
+  message: string,
+): Promise<SlackAlertResult> {
+  return enqueueWebhook(slackWebhookUrl, async () => {
+    const res = await sendSlackAlert(message, { webhookUrl: slackWebhookUrl });
+    await sleep(500); // pacing
+    return res;
+  });
 }

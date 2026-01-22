@@ -1,6 +1,10 @@
-import { markStaleAlert, markUnreviewedAlert } from "./pullRequest.service";
-import { sendSlackAlert } from "./slack.service";
-import { PullRequestWithRepo } from "./types";
+import Logger from "../utils/logger";
+import {
+  markStaleAlert,
+  markUnreviewedAlert,
+  markStalledAlert,
+} from "./pullRequest.service";
+import { PullRequestWithRepo } from "./pullRequest.types";
 import {
   parseReviewers,
   formatReviewerNames,
@@ -8,14 +12,20 @@ import {
   formatLastActivity,
   formatPRLink,
   formatOpenedDate,
+  sendQueued,
 } from "../helpers/alert.helper";
+import { appConfig } from "../../config/appConfig";
+import { enqueueWebhook } from "../utils/slackQueue";
+import { sleep } from "../helpers/sleep";
 
 export async function alertOnStalePRs(
   stalePrs: PullRequestWithRepo[],
   slackWebhookUrl: string,
-) {
+): Promise<number> {
+  let sentCount = 0;
+
   for (const pr of stalePrs) {
-    // If we've already alerted, skip
+    if (sentCount >= appConfig.app.maxAlertsPerTeam) break;
     if (pr.staleAlertAt) continue;
 
     const message =
@@ -24,21 +34,35 @@ export async function alertOnStalePRs(
       `> *Repo:* ${pr.repository.name}\n` +
       `> *Opened:* ${formatOpenedDate(pr.openedAt)}`;
 
-    await sendSlackAlert(message, { webhookUrl: slackWebhookUrl });
-    await markStaleAlert(pr.id);
+    const result = await sendQueued(slackWebhookUrl, message);
+
+    if (result.success) {
+      await markStaleAlert(pr.id);
+      sentCount++;
+    } else {
+      Logger.error("Slack send failed (stale). Will retry next run.", {
+        prId: pr.id,
+        attempts: result.attempts,
+        error: result.error,
+      });
+    }
   }
+
+  return sentCount;
 }
 
 export async function alertOnUnreviewedPRs(
   prs: PullRequestWithRepo[],
   slackWebhookUrl: string,
-) {
+): Promise<number> {
+  let sentCount = 0;
+
   for (const pr of prs) {
-    // Only alert if we haven't already
+    if (sentCount >= appConfig.app.maxAlertsPerTeam) break;
     if (pr.unreviewedAlertAt) continue;
 
     const pendingReviewers = parseReviewers(pr.reviewers);
-    const reviewerNames = formatReviewerNames(pendingReviewers);
+    const reviewerNames = formatReviewerNames(pendingReviewers) || "None";
 
     const message =
       `*👀 PR Needs Review*\n` +
@@ -47,16 +71,31 @@ export async function alertOnUnreviewedPRs(
       `> *Current Reviewers:* ${reviewerNames}\n` +
       `> *Status:* Awaiting first review`;
 
-    await sendSlackAlert(message, { webhookUrl: slackWebhookUrl });
-    await markUnreviewedAlert(pr.id);
+    const result = await sendQueued(slackWebhookUrl, message);
+
+    if (result.success) {
+      await markUnreviewedAlert(pr.id);
+      sentCount++;
+    } else {
+      Logger.error("Slack send failed (unreviewed). Will retry next run.", {
+        prId: pr.id,
+        attempts: result.attempts,
+        error: result.error,
+      });
+    }
   }
+
+  return sentCount;
 }
 
 export async function alertOnStalledPRs(
   prs: PullRequestWithRepo[],
   slackWebhookUrl: string,
-) {
+): Promise<number> {
+  let sentCount = 0;
+
   for (const pr of prs) {
+    if (sentCount >= appConfig.app.maxAlertsPerTeam) break;
     if (pr.stalledAlertAt) continue;
 
     const pendingReviewers = parseReviewers(pr.reviewers);
@@ -73,7 +112,19 @@ export async function alertOnStalledPRs(
       `> *Pending Reviewers:* ${pendingNames}\n` +
       `> *Action:* Please check if a follow-up is needed.`;
 
-    await sendSlackAlert(message, { webhookUrl: slackWebhookUrl });
-    await markStaleAlert(pr.id);
+    const result = await sendQueued(slackWebhookUrl, message);
+
+    if (result.success) {
+      await markStalledAlert(pr.id);
+      sentCount++;
+    } else {
+      Logger.error("Slack send failed (stalled). Will retry next run.", {
+        prId: pr.id,
+        attempts: result.attempts,
+        error: result.error,
+      });
+    }
   }
+
+  return sentCount;
 }
