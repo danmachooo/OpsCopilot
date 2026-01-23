@@ -5,6 +5,13 @@ import { AppError } from "../errors";
 import { Prisma } from "../generated/prisma/client";
 import { appConfig } from "../../config/appConfig";
 
+/**
+ * Standard JSON shape for error responses returned by the API.
+ *
+ * Notes:
+ * - `errors` is optional and typically contains structured validation or DB details
+ * - `stack` is only included in development to aid debugging
+ */
 interface ErrorResponse {
   success: false;
   message: string;
@@ -12,11 +19,43 @@ interface ErrorResponse {
   stack?: string;
 }
 
+/**
+ * True when running in a development environment.
+ *
+ * Used to determine whether to include stack traces
+ * in error responses.
+ */
 const isDevelopment = appConfig.app.nodeEnv === "development";
 
 /**
- * Global error handler middleware
- * Must be registered AFTER all routes
+ * Global Express error-handling middleware.
+ *
+ * Must be registered **after** all routes and middleware:
+ * ```ts
+ * app.use(errorHandler);
+ * ```
+ *
+ * Responsibilities:
+ * - Normalize errors into consistent HTTP responses
+ * - Map known error types to correct status codes and messages:
+ *   - Zod validation errors (400)
+ *   - AppError and subclasses (statusCode from error)
+ *   - Prisma known request errors (mapped by code)
+ *   - JWT errors (401)
+ *   - Multer upload errors (400)
+ * - Log with appropriate severity:
+ *   - 5xx: server errors logged as `error` with stack + request context
+ *   - 4xx: client errors logged as `warn` with minimal context
+ *
+ * Security notes:
+ * - Avoid returning internal error objects directly to clients.
+ * - Stack traces are only included in development.
+ *
+ * @param err - The thrown or rejected error.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ * @param next - Express next function (unused, but required for signature).
+ * @returns JSON response with `success: false`.
  */
 export function errorHandler(
   err: any,
@@ -64,9 +103,10 @@ export function errorHandler(
     message = `File upload error: ${err.message}`;
   }
 
-  // Log error details
+  // Normalize to an Error object for consistent logging/stack handling
   const errObj = err instanceof Error ? err : new Error(String(err));
 
+  // Log error details
   if (statusCode >= 500) {
     Logger.error("Server error:", {
       message: errObj.message,
@@ -97,8 +137,15 @@ export function errorHandler(
 }
 
 /**
- * Strong Prisma detection:
- * - PrismaClientKnownRequestError is what contains codes like P2002, P2025, etc.
+ * Type guard for reliably detecting Prisma "known request" errors.
+ *
+ * PrismaClientKnownRequestError includes stable error codes like:
+ * - P2002 (unique constraint violation)
+ * - P2025 (record not found)
+ * - P2003 (foreign key violation)
+ *
+ * @param err - Unknown error thrown by Prisma or other layers.
+ * @returns True if `err` is a PrismaClientKnownRequestError.
  */
 function isPrismaKnownRequestError(
   err: unknown,
@@ -107,8 +154,20 @@ function isPrismaKnownRequestError(
 }
 
 /**
- * Prisma known error mapper
- * Customize P2002 for your "one team per owner" constraint
+ * Maps Prisma known request errors into HTTP-friendly error responses.
+ *
+ * Customize this mapping to match your domain semantics.
+ *
+ * Current mappings:
+ * - P2002: Unique constraint violation (409)
+ *   - Special-cased for `ownerId` to enforce "one team per owner"
+ * - P2025: Record not found (404)
+ * - P2003: Foreign key / invalid reference (400)
+ * - P2014: Required relation violation (400)
+ * - Default: Database error (500)
+ *
+ * @param err - Prisma known request error.
+ * @returns A normalized HTTP error descriptor.
  */
 function handlePrismaKnownError(err: Prisma.PrismaClientKnownRequestError): {
   statusCode: number;
@@ -119,16 +178,16 @@ function handlePrismaKnownError(err: Prisma.PrismaClientKnownRequestError): {
     case "P2002": {
       const target = err.meta?.target;
 
-      // target sometimes is string[] or string depending on Prisma version/adapter
+      // `target` can be string[] or string depending on Prisma version/adapter
       const fields = Array.isArray(target)
         ? target
         : target
           ? [String(target)]
           : [];
+
       const joined = fields.length ? fields.join(", ") : "field";
 
-      // ✅ Custom message for "one team per owner"
-      // If your unique constraint is on ownerId or (ownerId) in Team table
+      // Domain-specific message: "one team per owner"
       if (fields.includes("ownerId")) {
         return {
           statusCode: 409,

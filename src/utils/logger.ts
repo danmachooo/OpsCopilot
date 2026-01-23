@@ -1,6 +1,17 @@
 import winston from "winston";
 
-// Define log levels
+/**
+ * Custom log levels used across the application.
+ *
+ * Lower numbers indicate higher priority.
+ *
+ * Levels:
+ * - error: Critical failures requiring immediate attention
+ * - warn: Non-fatal issues or unexpected states
+ * - info: General application lifecycle events
+ * - http: HTTP request/response logging
+ * - debug: Verbose debugging information (development only)
+ */
 const levels = {
   error: 0,
   warn: 1,
@@ -9,7 +20,12 @@ const levels = {
   debug: 4,
 };
 
-// Define colors for each level
+/**
+ * Console color mapping for log levels.
+ *
+ * Colors are applied only to console output
+ * and do not affect file-based logs.
+ */
 const colors = {
   error: "red",
   warn: "yellow",
@@ -18,16 +34,26 @@ const colors = {
   debug: "white",
 };
 
+// Register custom colors with Winston
 winston.addColors(colors);
 
+/**
+ * Shared log format configuration.
+ *
+ * Includes:
+ * - Timestamp (YYYY-MM-DD HH:mm:ss:ms)
+ * - Colorized log level (console only)
+ * - Pretty-printed metadata (if present)
+ *
+ * Metadata is extracted from all properties
+ * except `timestamp`, `level`, and `message`.
+ */
 const format = winston.format.combine(
   winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss:ms" }),
   winston.format.colorize({ all: true }),
   winston.format.printf((info) => {
-    // Extract metadata (everything except message, level, and timestamp)
     const { timestamp, level, message, ...metadata } = info;
 
-    // Check if metadata exists and isn't empty
     const metaString = Object.keys(metadata).length
       ? `\n${JSON.stringify(metadata, null, 2)}`
       : "";
@@ -36,18 +62,44 @@ const format = winston.format.combine(
   }),
 );
 
+/**
+ * Winston transports configuration.
+ *
+ * Transports:
+ * - Console: All logs (colorized)
+ * - File (logs/error.log): Error-level logs only
+ * - File (logs/all.log): All logs regardless of level
+ *
+ * NOTE:
+ * - Ensure the `logs/` directory exists in production.
+ * - File logs are uncolorized for easier parsing.
+ */
 const transports = [
-  // Allow the use of the console to print the messages
   new winston.transports.Console(),
-  // Allow to print all the error level messages inside the error.log file
+
   new winston.transports.File({
     filename: "logs/error.log",
     level: "error",
   }),
-  // Allow to print all the error level messages inside the all.log file
-  new winston.transports.File({ filename: "logs/all.log" }),
+
+  new winston.transports.File({
+    filename: "logs/all.log",
+  }),
 ];
 
+/**
+ * Application-wide Winston logger instance.
+ *
+ * Log level behavior:
+ * - development: debug and above
+ * - production: info and above
+ *
+ * Intended usage:
+ * ```ts
+ * Logger.info("Server started", { port: 3000 });
+ * Logger.error("Database connection failed", { error });
+ * ```
+ */
 const Logger = winston.createLogger({
   level: process.env.NODE_ENV === "development" ? "debug" : "info",
   levels,

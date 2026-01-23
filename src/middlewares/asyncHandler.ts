@@ -2,10 +2,31 @@ import { Request, Response, NextFunction } from "express";
 import { HttpContext } from "../controllers/team.types";
 
 /**
- * Async handler wrapper to catch errors in async route handlers
- * Usage: router.get('/path', asyncHandler(async (req, res) => { ... }))
+ * Wraps an asynchronous route handler to automatically
+ * forward rejected promises and thrown errors to Express'
+ * error-handling middleware.
+ *
+ * This utility eliminates repetitive `try/catch` blocks
+ * in controllers and ensures consistent error propagation.
+ *
+ * Design:
+ * - Controllers receive a single `HttpContext` object
+ * - Errors are passed to `next()` for centralized handling
+ *
+ * Example:
+ * ```ts
+ * router.get(
+ *   "/teams/:teamId",
+ *   asyncHandler(async ({ req, res }) => {
+ *     const team = await getTeam(req.params.teamId);
+ *     res.json(team);
+ *   }),
+ * );
+ * ```
+ *
+ * @param fn - Asynchronous route handler accepting an `HttpContext`.
+ * @returns An Express-compatible request handler.
  */
-
 export const asyncHandler =
   (fn: (http: HttpContext) => Promise<any>) =>
   (req: Request, res: Response, next: NextFunction) => {
