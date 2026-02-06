@@ -39,8 +39,11 @@ export const onboardTeamSchema = z.object({
 // No input needed; server generates secret
 export const provisionGithubWebhookSchema = z.object({});
 
-export type TeamIdentifier = z.infer<typeof teamIdentifierSchema>;
-export type CreateTeamInput = z.infer<typeof createTeamSchema>;
-export type UpdateTeamInput = z.infer<typeof updateTeamSchema>;
-export type UpdateConfigsInput = z.infer<typeof updateConfigsSchema>;
-export type UpdateSlackInput = z.infer<typeof updateSlackSchema>;
+// Types are now exported from src/types/team.ts
+export type {
+  TeamIdentifier,
+  CreateTeamInput,
+  UpdateTeamInput,
+  UpdateConfigsInput,
+  UpdateSlackInput,
+} from "../types/team";
