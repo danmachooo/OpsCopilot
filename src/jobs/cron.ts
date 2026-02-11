@@ -1,6 +1,5 @@
 import cron from "node-cron";
 import Logger from "../utils/logger";
-import { prisma } from "../lib/prisma";
 import { decryptSecret } from "../services/secrets.service";
 import { aadFor } from "../helpers/aadFor";
 import {
@@ -71,10 +70,11 @@ export async function startCronJobs() {
               team.slackWebhookUrlEnc,
               aadFor(teamId, "slack"),
             );
-          } catch (e: any) {
+          } catch (err) {
+            const message = err instanceof Error ? err.message : String(err)
             Logger.error("Cron: Failed to decrypt Slack webhook", {
               teamId,
-              error: e?.message ?? String(e),
+              error: message,
             });
           }
 
@@ -124,17 +124,20 @@ export async function startCronJobs() {
             teamId,
             results: found,
           });
-        } catch (err: any) {
+        } catch (err) {
+          const message = err instanceof Error ? err.message : String(err)
           Logger.error("Cron: Team PR check failed", {
             teamId,
-            error: err?.message ?? String(err),
+            error: message
           });
           erroredTeams.push(teamId);
         }
       }
-    } catch (err: any) {
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err)
+
       Logger.error("Cron: Failed to load teams", {
-        error: err?.message ?? String(err),
+        error: message,
       });
     } finally {
       isRunning = false;

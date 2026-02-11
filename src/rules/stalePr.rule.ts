@@ -3,9 +3,6 @@ import { PRStatus } from "../generated/prisma/enums";
 import { appConfig } from "../../config/appConfig";
 import { FindStalePullRequestsOptions } from "../types/rules/findUnreviewedPR.type";
 
-type SortOrder = "latest" | "oldest" | "all";
-
-
 export async function findStalePullRequests(
   teamId: number,
   options: FindStalePullRequestsOptions = {},

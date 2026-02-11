@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response } from "express";
 import { z } from "zod";
 import Logger from "../utils/logger";
 import { AppError } from "../errors";
@@ -45,14 +45,13 @@ const isDevelopment = appConfig.app.nodeEnv === "development";
  * @returns JSON response with `success: false`.
  */
 export function errorHandler(
-  err: any,
+  err: unknown,
   req: Request,
   res: Response,
-  next: NextFunction,
 ) {
   let statusCode = 500;
   let message = "Internal server error";
-  let errors: any = undefined;
+  let errors = undefined;
 
   // --- Zod validation errors ---
   if (err instanceof z.ZodError) {

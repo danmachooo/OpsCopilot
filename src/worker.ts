@@ -7,18 +7,19 @@ import Logger from "./utils/logger";
  */
 (async function initializeWorker() {
   try {
-    Logger.info("🧠 OpsCopilot cron worker starting...");
+    Logger.info("pr-daemon cron worker starting...");
 
     // Initialize your jobs
     await startCronJobs();
 
-    Logger.info("✅ OpsCopilot cron worker is running");
-  } catch (error: any) {
-    Logger.error(`❌ Failed to start worker: ${error.message}`);
+    Logger.info("pr-daemon cron worker is running");
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    Logger.error(`Failed to start worker: ${message}`);
     process.exit(1);
   }
 
-  // Handle graceful shutdown (e.g., when stopping the server)
+  // Handle graceful shutdown like when stopping the server
   process.on("SIGTERM", () => {
     Logger.info("Stopping cron worker...");
     process.exit(0);

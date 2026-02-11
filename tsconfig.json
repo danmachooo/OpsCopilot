@@ -10,5 +10,10 @@
     "outDir": "dist",
     "types": ["node"]
   },
-  "include": ["src/**/*.ts"]
+  "include": [
+    "src/**/*.ts",   
+    "prisma.config.ts",
+    "prisma/seed.ts",
+    "scripts/**/*.ts"
+  ]
 }

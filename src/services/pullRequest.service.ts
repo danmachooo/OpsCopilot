@@ -1,7 +1,7 @@
 import { prisma } from "../lib/prisma";
 import { PRStatus } from "../generated/prisma/enums";
 import { PullRequestIdentifier, ClosePullRequest, UpsertPullRequest, ReviewData } from "../types/github/prs";
-import { CompletedReviewRecord, ReviewState } from "../schema/github/webhook";
+import { CompletedReviewRecord } from "../schema/github/webhook";
 import z from "zod";
 import { completedReviewRecordSchema } from "../schema/github/webhook/completeReviewRecord.schema";
 

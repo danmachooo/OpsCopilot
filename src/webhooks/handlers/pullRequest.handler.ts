@@ -22,7 +22,7 @@ export async function handlePullRequestEvent(payload: PullRequestEvent) {
       case "opened":
       case "reopened":
       case "synchronize":
-      case "review_requested":
+      case "review_requested": {
         const teamId = await getTeamIdByRepo(repoId) 
 
         if(!teamId) throw new NotFoundError("No team is associated with this ID.")
@@ -34,8 +34,8 @@ export async function handlePullRequestEvent(payload: PullRequestEvent) {
           await resetPullRequestAlerts({ repoId, prNumber });
         }
         break;
-
-      case "closed":
+      }
+      case "closed": {
         const closedAt = pull_request.closed_at
           ? new Date(pull_request.closed_at)
           : new Date();
@@ -47,6 +47,8 @@ export async function handlePullRequestEvent(payload: PullRequestEvent) {
           );
         }
         break;
+
+      }
 
       default:
         Logger.debug(`Unhandled PR action: ${action}`);
