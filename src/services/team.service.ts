@@ -5,7 +5,7 @@ import { encryptSecret } from "./secrets.service";
 import { aadFor } from "../helpers/aadFor";
 
 export async function getTeamByOwner(ownerId: string) {
-  return prisma.team.findUnique({
+  return await prisma.team.findUnique({
     where: { ownerId }, // requires @@unique([ownerId])
     include: {
       members: {
@@ -18,6 +18,18 @@ export async function getTeamByOwner(ownerId: string) {
   });
 }
 
+export async function getTeamIdByRepo(repoId: number): Promise<number | null> {
+  const repo = await prisma.repository.findUnique({
+    where: { id: repoId },
+    select: { teamId: true },
+  });
+
+  return repo?.teamId ?? null;
+}
+
+
+
+
 export async function getTeamsWithWebhook() {
   return await prisma.team.findMany({
     // only teams with configured Slack integration
@@ -27,7 +39,7 @@ export async function getTeamsWithWebhook() {
 }
 
 export async function getTeamByIdForOwner(teamId: number, ownerId: string) {
-  return prisma.team.findFirst({
+  return await prisma.team.findFirst({
     where: { id: teamId, ownerId },
     include: {
       members: {
@@ -42,7 +54,7 @@ export async function getTeamByIdForOwner(teamId: number, ownerId: string) {
 
 export async function createTeamForOwner(ownerId: string, name: string) {
   // Will throw P2002 if owner already has a team (due to @@unique([ownerId]))
-  return prisma.team.create({
+  return await prisma.team.create({
     data: {
       name,
       ownerId,
@@ -67,7 +79,7 @@ export async function updateTeamMeta(
   data: { name?: string },
 ) {
   // Ownership enforcement in query
-  return prisma.team
+  return await prisma.team
     .update({
       where: { id: teamId },
       data: {
@@ -147,14 +159,14 @@ export async function provisionGithubWebhook(
 }
 
 export async function updateLastGithubEvent(teamId: number) {
-  return prisma.team.update({
+  return await prisma.team.update({
     where: { id: teamId },
     data: { lastGithubEventAt: new Date() },
   });
 }
 
 export async function updateLastSlackSent(teamId: number) {
-  return prisma.team.update({
+  return await prisma.team.update({
     where: { id: teamId },
     data: { lastSlackSentAt: new Date() },
   });

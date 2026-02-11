@@ -12,10 +12,9 @@ import {
   formatPRLink,
   formatOpenedDate,
   sendQueued,
-} from "../helpers/alert.helper";
+} from "../helpers/alert/alert.helper";
 import { appConfig } from "../../config/appConfig";
-import { PullRequestWithRepo } from "../types/pullRequest";
-
+import { PullRequestWithRepo } from "../types/github/prs";
 
 export async function alertOnStalePRs(
   stalePrs: PullRequestWithRepo[],

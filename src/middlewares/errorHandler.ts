@@ -4,20 +4,7 @@ import Logger from "../utils/logger";
 import { AppError } from "../errors";
 import { Prisma } from "../generated/prisma/client";
 import { appConfig } from "../../config/appConfig";
-
-/**
- * Standard JSON shape for error responses returned by the API.
- *
- * Notes:
- * - `errors` is optional and typically contains structured validation or DB details
- * - `stack` is only included in development to aid debugging
- */
-interface ErrorResponse {
-  success: false;
-  message: string;
-  errors?: any;
-  stack?: string;
-}
+import { ErrorResponse } from "../types/error";
 
 /**
  * True when running in a development environment.

@@ -1,8 +1,6 @@
 import axios, { AxiosError } from "axios";
 import Logger from "../utils/logger";
-import type { SlackAlertOptions, SlackAlertResult } from "../types/slack";
-
-export type { SlackAlertResult };
+import { SlackAlertOptions, SlackAlertResult } from "../types/slack";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 

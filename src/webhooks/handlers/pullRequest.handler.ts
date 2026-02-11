@@ -1,15 +1,14 @@
 // src/webhooks/handlers/pullRequest.handler.ts
+import { NotFoundError } from "../../errors";
 import { mapGitHubPayload } from "../../helpers/mapGithubPayload";
-import {
-  PullRequestEvent,
-  PullRequestReviewEvent,
-} from "../../schema/webhook.schema";
+import { PullRequestEvent, PullRequestReviewEvent } from "../../schema/github/webhook";
 import {
   upsertPullRequest,
   resetPullRequestAlerts,
   closePullRequest,
   recordReviewSubmission,
 } from "../../services/pullRequest.service";
+import { getTeamIdByRepo } from "../../services/team.service";
 import Logger from "../../utils/logger";
 
 export async function handlePullRequestEvent(payload: PullRequestEvent) {
@@ -24,7 +23,11 @@ export async function handlePullRequestEvent(payload: PullRequestEvent) {
       case "reopened":
       case "synchronize":
       case "review_requested":
-        const data = mapGitHubPayload(payload);
+        const teamId = await getTeamIdByRepo(repoId) 
+
+        if(!teamId) throw new NotFoundError("No team is associated with this ID.")
+
+        const data = mapGitHubPayload(payload, teamId);
         await upsertPullRequest(data);
 
         if (action !== "opened") {
@@ -67,9 +70,11 @@ export async function handlePullRequestReviewEvent(
         prNumber: pull_request.number,
       },
       {
-        id: review.user.id,
-        login: review.user.login,
+        reviewId: review.id,
+        reviewerId: review.user.id,
+        reviewerLogin: review.user.login,
         state: review.state,
+        submittedAt: review.submitted_at
       },
     );
   } catch (error) {
