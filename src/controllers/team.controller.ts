@@ -1,38 +1,15 @@
-import {
-  createTeamSchema,
-  updateTeamSchema,
-  updateConfigsSchema,
-  updateSlackSchema,
-  onboardTeamSchema,
-} from "../schema/team.schema";
-
-import {
-  createTeamForOwner,
-  getTeamByOwner,
-  provisionGithubWebhook,
-  setSlackWebhook,
-  updateTeamConfigs,
-  updateTeamMeta,
-  getTeamByIdForOwner,
-  onboardTeamForOwner,
-} from "../services/team.service";
-
-import {
-  getDaemonStatus,
-  getTeamIntegrationStatus,
-} from "../services/system.service";
-
-import { safeTeamResponse } from "../helpers/safeTeamResponse";
-import { NotFoundError } from "../errors";
 import { asyncHandler } from "../middlewares";
-
-import type { HttpContext } from "../types/common";
-import { getBaseUrl, getValidTeamId } from "../helpers/team.helper";
-import { success } from "zod";
-import { http } from "winston";
+import { HttpContext } from "../types/shared/httpContext.type";
+import { createTeamForOwner, getTeamByIdForOwner, getTeamByOwner, onboardTeamForOwner, provisionGithubWebhook, setSlackWebhook, updateTeamConfigs, updateTeamMeta } from "../services/team.service";
+import { NotFoundError } from "../errors";
+import { safeTeamResponse } from "../helpers/safeTeamResponse";
+import { createTeamSchema, updateConfigsSchema, updateSlackSchema, updateTeamSchema } from "../schema/team";
 import { findStalePullRequests } from "../rules/stalePr.rule";
 import { findStalledPrs } from "../rules/stalledPr.rule";
 import { findUnreviewedPullRequests } from "../rules/unreviewedPr.rule";
+import { onboardTeamSchema } from "../schema/team/onboardTeam.schema";
+import { getTeamIntegrationStatus, getDaemonStatus } from "../services/system.service";
+import { getBaseUrl, getValidTeamId } from "../helpers/team.helper";
 
 /**
  * Get the authenticated user's team

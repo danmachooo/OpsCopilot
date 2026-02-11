@@ -1,8 +1,6 @@
-import { Logform } from "winston";
 import { appConfig } from "../../config/appConfig";
-import { HttpContext } from "../controllers/team.types";
 import { AppError, ValidationError } from "../errors";
-
+import { HttpContext } from "../types/shared";
 /**
  * Extracts and validates the `teamId` route parameter
  * from the HTTP request context.

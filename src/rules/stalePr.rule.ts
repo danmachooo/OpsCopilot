@@ -1,13 +1,10 @@
 import { prisma } from "../lib/prisma";
 import { PRStatus } from "../generated/prisma/enums";
 import { appConfig } from "../../config/appConfig";
+import { FindStalePullRequestsOptions } from "../types/rules/findUnreviewedPR.type";
 
 type SortOrder = "latest" | "oldest" | "all";
 
-interface FindStalePullRequestsOptions {
-  sortOrder?: SortOrder;
-  limit?: number;
-}
 
 export async function findStalePullRequests(
   teamId: number,

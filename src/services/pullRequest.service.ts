@@ -1,9 +1,10 @@
 import { prisma } from "../lib/prisma";
 import { PRStatus } from "../generated/prisma/enums";
+import { PullRequestIdentifier, ClosePullRequest, UpsertPullRequest, ReviewData } from "../types/github/prs";
+import { CompletedReviewRecord, ReviewState } from "../schema/github/webhook";
+import z from "zod";
+import { completedReviewRecordSchema } from "../schema/github/webhook/completeReviewRecord.schema";
 
-import { RequestedReviewer } from "../schema/webhook.schema";
-import { PullRequestIdentifier, ClosePullRequestInput, UpsertPullRequest } from "../types/pullRequest";
-// --- Service Functions ---
 
 export async function prAlreadyExist(data: PullRequestIdentifier) {
   return await prisma.pullRequest.findUnique({
@@ -13,7 +14,7 @@ export async function prAlreadyExist(data: PullRequestIdentifier) {
   });
 }
 
-export async function closePullRequest(data: ClosePullRequestInput) {
+export async function closePullRequest(data: ClosePullRequest) {
   const { repoId, prNumber, closedAt } = data;
   if (data.repoId === undefined || data.prNumber === undefined) {
     throw new Error(
@@ -62,21 +63,19 @@ export async function upsertPullRequest(data: UpsertPullRequest) {
     },
     update: {
       ...updateFields,
-      status: updateFields.status as PRStatus,
     },
     create: {
       prNumber,
-      openedAt: openedAt || new Date(),
+      openedAt,
       ...updateFields,
-      status: updateFields.status as PRStatus,
       repository: {
         connectOrCreate: {
           where: { id: repoId },
           create: {
             id: repoId,
             name: repoName,
-            fullName: repoFullName, // Add this
-            teamId: teamId, // Add this
+            fullName: repoFullName,
+            teamId,
           },
         },
       },
@@ -98,7 +97,7 @@ export async function incrementReviewCount(data: PullRequestIdentifier) {
 
 export async function recordReviewSubmission(
   data: PullRequestIdentifier,
-  reviewData: { id: number; login: string; state: string },
+  reviewData: ReviewData
 ) {
   const { repoId, prNumber } = data;
 
@@ -107,32 +106,38 @@ export async function recordReviewSubmission(
     select: { completedReviewers: true },
   });
 
-  const history =
-    (pr?.completedReviewers as unknown as RequestedReviewer[]) || [];
+  const history = z
+    .array(completedReviewRecordSchema)
+    .catch([])
+    .parse(pr?.completedReviewers);
 
-  const alreadyRecorded = history.some(
-    (r) => r.id === reviewData.id && r.state === reviewData.state,
-  );
+  const alreadyRecorded = history.some((r) => r.reviewId === reviewData.reviewId);
+  if (alreadyRecorded) return;
 
-  if (alreadyRecorded) {
-    return;
-  }
+  const submittedAt = reviewData.submittedAt ?? new Date().toISOString();
 
-  history.push({
-    ...reviewData,
-    submittedAt: String(new Date()),
-  });
+  const nextHistory: CompletedReviewRecord[] = [
+    ...history,
+    {
+      reviewId: reviewData.reviewId,
+      reviewerId: reviewData.reviewerId,
+      reviewerLogin: reviewData.reviewerLogin,
+      state: reviewData.state,
+      submittedAt,
+    },
+  ];
 
-  return await prisma.pullRequest.update({
+  return prisma.pullRequest.update({
     where: { repoId_prNumber: { repoId, prNumber } },
     data: {
       reviewCount: { increment: 1 },
-      lastReviewAt: new Date(),
-      completedReviewers: history,
+      lastReviewAt: new Date(submittedAt),
+      completedReviewers: nextHistory,
       unreviewedAlertAt: null,
     },
   });
 }
+
 
 export async function markUnreviewedAlert(id: number) {
   await prisma.pullRequest.update({
