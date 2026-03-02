@@ -8,7 +8,7 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   baseURL: appConfig.app.url,
-  trustedOrigins: ["http://localhost:8080"],
+  trustedOrigins: ["http://localhost:8080", "https://pr-daemon-frontend.vercel.app"],
   socialProviders: {
     github: {
       clientId: process.env.GITHUB_CLIENT_ID as string,
